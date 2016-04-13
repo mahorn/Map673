@@ -6,7 +6,9 @@
     <title>Lab 01 Template</title>
     <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
 
+    <script src="https://code.jquery.com/jquery-1.12.2.min.js"></script>
     <script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/simple-statistics/1.0.1/simple_statistics.js"></script>
 
     <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
     <link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
@@ -20,8 +22,8 @@
             color: #0D0000;
         }
         header {
-            width: 960px;
-            margin: 10px 20px 10px 20px;
+            width: 80%;
+            margin: 10px auto 10px auto;
         }
         h1 {
             display: inline-block;
@@ -33,15 +35,15 @@
             color: #001323;
         }
         #map {
-            width: 960px;
+            width: 80%;
             height: 540px;
-            margin: 10px 20px 10px 20px;
+            margin: 10px auto 10px auto;
             background: whitesmoke;
             border: 2px solid #dddedf;
         }
         footer {
-            width: 960px;
-            margin: 10px 20px 10px 20px;
+            width: 80%;
+            margin: 10px auto 10px auto;
         }
         p {
             font-size: 1em;
@@ -70,7 +72,49 @@
 
     <script>
         
-        // WRITE YOUR CODE JAVASCRIPT CODE HERE
+        var options = {
+            center: [37.8, -85.8],
+            zoom: 7.4,
+            zoomControl: false
+        }
+        var map = L.map('map', options);
+        
+        var dataLayer,
+            attribute = "OWNED_MORT",
+            norm = "OWNER";
+        
+        $.getJSON("ky_counties_housing.json", function(data) {
+            
+            dataLayer = L.geoJson(data, {
+                style: function(feature) {
+                    return {
+                        color: '#dddddd',
+                        weight: 1,
+                        fillOpacity: 1,
+                        fillColor: '#1f78b4'
+                    };
+                }
+            }).addTo(map);
+            
+            drawMap();
+            
+        function drawMap() {
+            
+               var breaks = getClassBreaks();
+            
+            }
+            
+            function getClassBreaks() {
+                
+                var values = [];
+                dataLayer.eachLayer(function(layer) {
+                    var value = layer.feature.properties[attribute]/layer.feature.properties[norm];
+                    values.push(value);
+                });
+               console.log(values); 
+            }
+            
+        });
 
     </script>
     
