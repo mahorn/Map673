@@ -65,19 +65,17 @@
         .legend span {
             width: 20px;
             height: 20px;
-        float: left;
+            float: left;
             margin: 0 10px 4px 0;
         }
         .legend label {
-        font-size: 1.1em;
+            font-size: 1.1em;
         }
         .legend label:after {
             content: '';
             display: block;
-        clear: both;
+            clear: both;
         }
-        
-        /* ADD YOUR ADDITIONAL STYLE RULES HERE */
         
     </style>
 </head>
@@ -99,24 +97,21 @@
 
     <script>
         
-        var options = {
-            center: [37.8, -85.8],
-            zoom: 7.4,
-            zoomControl: false
-        }
-        var map = L.map('map', options);
+            var options = {
+                center: [37.8, -85.8],
+                zoom: 7.4,
+                zoomControl: false
+            }
+            var map = L.map('map', options);
+                map.addControl(L.control.zoom({position: 'topright'}));
         
-        var dataLayer,
-            attribute = "OWNED_MORT",
-            norm = "OWNER",
-            state = "NAME";
-    
+            var dataLayer,
+                attribute = "OWNED_MORT",
+                norm = "OWNER",
+                state = "NAME";
         
         $.getJSON("ky_counties_housing.json", function(data) {
-            
-       
-            
-            dataLayer = L.geoJson(data, {
+            var dataLayer = L.geoJson(data, {
                 style: function(feature) {
                     return {
                         color: '#dddddd',
@@ -127,27 +122,25 @@
                 }
             }).addTo(map);
             
+        drawMap(dataLayer);
             
-            
-            drawMap();
-            
-        function drawMap() {
-               var breaks = getClassBreaks();
-            dataLayer.eachLayer(function(layer) {
-                layer.setStyle({
-                    fillColor: getColor(layer.feature.properties[attribute]/layer.feature.properties[norm], breaks)
+        function drawMap(dataLayer) {
+            var breaks = getClassBreaks();
+                dataLayer.eachLayer(function(layer) {
+//                    console.log(layer);
+                    layer.setStyle({
+                        fillColor: getColor(layer.feature.properties[attribute]/layer.feature.properties[norm], breaks)
+                    });   
                 });
-               
-            });
-         
-             drawLegend(breaks);
-        }
-        
             
-            function getClassBreaks() {  
-                var values = [];
-                    dataLayer.eachLayer(function(layer) {
-                        var value = layer.feature.properties[attribute]/layer.feature.properties[norm];
+        drawLegend(breaks);
+     
+            }
+       
+        function getClassBreaks() {  
+            var values = [];
+                dataLayer.eachLayer(function(layer) {
+                     var value = layer.feature.properties[attribute]/layer.feature.properties[norm];
                         values.push(value);
                 });
 //               console.log(values); 
@@ -156,11 +149,11 @@
             
             var breaks = clusters.map(function(cluster) {
                     return [cluster[0], cluster.pop()];
-            });
-                return breaks;
+                });
+                    return breaks;
             }
             
-             function getColor(d, breaks) {
+        function getColor(d, breaks) {
                 if(d <= breaks[0][1]) {
                     return '#f1eef6';
                 } else if(d <= breaks[1][1]) {
@@ -174,43 +167,37 @@
                 }
             } 
             
-           function drawLegend(breaks) {
-
-    var legend = L.control({position: 'topleft'});
-
-    legend.onAdd = function () {
-
-    var div = L.DomUtil.create('div', 'legend');
-
-    div.innerHTML = "<h3> % Owners with Mortgage</h3>"; 
-
-    for (var i = 0; i < breaks.length; i++) {
-
-        var color = getColor(breaks[i][0], breaks);
-
-        div.innerHTML +=
-            '<span style="background:' + color + '"></span> ' +
-            '<label>'+(breaks[i][0]*100).toLocaleString() + ' &mdash; ' + 
-            (breaks[i][1]*100).toLocaleString() + '</label>';
-}
-
-    return div;
-    };
-
-    legend.addTo(map);
-              } 
+        function drawLegend(breaks) {
+            var legend = L.control({position: 'topleft'});
+                legend.onAdd = function () {
+            var div = L.DomUtil.create('div', 'legend');
+                div.innerHTML = "<h3> % Owners with Mortgage</h3>"; 
+                
+        for (var i = 0; i < breaks.length; i++) {
+            var color = getColor(breaks[i][0], breaks);
+                div.innerHTML +=
+                    '<span style="background:' + color + '"></span> ' +
+                    '<label>'+(breaks[i][0]*100).toLocaleString() + ' &mdash; ' + 
+                    (breaks[i][1]*100).toLocaleString() + '</label>';
+                }   
+                    return div;
+                };
             
-       
+            legend.addTo(map);
             
+            }  
          
-            
-            
-            
-            
-            
-        });
+        popup(dataLayer);
+                
+        function popup(dataLayer) {
+                dataLayer.eachLayer(function(layer) {
+                    var mortage = layer.feature.properties[attribute]/layer.feature.properties[norm]*100;
+                    var county = layer.feature.properties[state];
+                        layer.bindPopup('<b><center>'+county+' County'+'</b><br>'+mortage.toLocaleString()+' %')    
+                    });  
+                }
+            });
         
-
     </script>
     
 </body>
