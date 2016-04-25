@@ -101,7 +101,15 @@
             background: rgba(255,255,255,0.8);
             box-shadow: 0 0 15px rgba(0,0,0,0.2);
             border-radius: 5px;
-            text-align: right;
+            width: 320px;
+        }
+        .info span {
+            float: right;
+        }
+        .info:after {
+            content: '';
+            display: block;
+            clear: both;
         }
         .info h3 {
             margin: 0.3;
@@ -155,7 +163,7 @@
         var map = L.map('map', options);
         
         // add zoom control to map, passing the zoom position option
-        map.addControl( L.control.zoom({ position: 'topright' }));
+//        map.addControl( L.control.zoom({ position: 'topright' }));
         
         var dataLayer, // declare global variable for map units
             attribute = "VACANT_FOR", // assign initial variable to store data attribute
@@ -374,14 +382,14 @@
             // create a html variable with concatenated with an updated information regarding our attributes or
             // assigning a more user-friendly attributes 
             var html = "<h3>"+props['NAME']+" County</h3>"+
-                        "# total vacant dwellings: <b>"+ props["VACANT"]+"</b><br>"+
-                        "# vacant dwellings for rent: <b>"+ props["VACANT_FOR"]+"</b><br>"+
-                        "# vacant dwellings rented unoccupied: <b>"+ props["VACANT_REN"]+"</b><br>"+
-                        "# vacant dwellings for sale: <b>"+ props["VACANT_FO2"]+"</b><br>"+
-                        "# vacant dwellings sole unoccupied: <b>"+ props["VACANT_SOL"]+"</b><br>"+
-                        "# vacant dwellings used seasonally or recreational: <b>"+ props["VACANT_SEA"]+"</b><br>"+
-                        "# vacant dwellings used for migratory workers: <b>"+ props["VACANT_MIG"]+"</b><br>"+
-                        "# vacant dwellings for other purpose: <b>"+ props["VACANT_OTH"]+"</b><br>"
+                        "# total vacant dwellings: <b><span>"+ props["VACANT"]+"</b><br>"+
+                        "# vacant dwellings for rent: <b><span>"+ props["VACANT_FOR"]+"</span></b><br>"+
+                        "# vacant dwellings rented unoccupied: <b><span>"+ props["VACANT_REN"]+"</span></b><br>"+
+                        "# vacant dwellings for sale: <b><span>"+ props["VACANT_FO2"]+"</span></b><br>"+
+                        "# vacant dwellings sole unoccupied: <b><span>"+ props["VACANT_SOL"]+"</span></b><br>"+
+                        "# vacant dwellings used seasonally or recreational: <b><span>"+ props["VACANT_SEA"]+"</span></b><br>"+
+                        "# vacant dwellings used for migratory workers: <b><span>"+ props["VACANT_MIG"]+"</span></b><br>"+
+                "# vacant dwellings for other purpose: <b><span>"+ props["VACANT_OTH"]+"</span></b><br>"
 
             // JQuery method to select the info panel and update the html variable with the JQuery method .html()
             $(".info").html(html);
