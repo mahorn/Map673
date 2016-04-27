@@ -9,6 +9,7 @@
     <script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
     <script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/simple-statistics/1.0.0/simple_statistics.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/4.1.2/papaparse.min.js"></script>
 
     <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
     <link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
@@ -25,8 +26,16 @@
             padding: 6px 10%;
         }
         h1 {
+            position: absolute;
+            z-index: 100;
+            top: 10px;
+            left: 60px;
             padding: 8px 15px;
             margin: 0; 
+            color: whitesmoke;
+            font-size: 1.5em;
+            background: rgba(25,25,25,0.8);
+            border-radius: 5px;
         }
         #map {
             position: absolute;
@@ -63,15 +72,58 @@
         var map = L.map('map', options);
         
         // load map tiles and add to map
-                
+        var tiles = L.tileLayer('http://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png', {
+	        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="http://cartodb.com/attributions">CartoDB</a>',
+	        subdomains: 'abcd',
+	        maxZoom: 19
+        }); 
+            map.addLayer(tiles);
+        
         // declare global variables
+        var dataLayer,
+            attribute = "2001";
 
         // AJAX requests to load data files
+        $.getJSON("us-states.json", function(states) {
+            Papa.parse('states-unemployment.csv', {
+                download: true,
+                header: true,
+                complete: function (data) {
+                    
+                    processData(states, data);
+                }
+            });
+        });
  
         // function to process/bind data
-
-        // function to draw the map
+        function processData(states, data) {
+            for (var state in states.features) {
+                var props = states.features[state].properties;
+                    for (var d in data.data) {
+                        if(props.STATEFP == data.data[d].STATE_FIP) {
+                            states.features[state].properties = data.data[d];
+                                break;
+                     }
+                }
+            }
+        }
         
+                    drawMap();
+                    
+        // function to draw the map
+        function drawMap() {
+           dataLayer = L.geoJson(states, {
+                style: function(feature) {
+                    return {
+                        color: '#dddddd',
+                        weight: 1,
+                        fillOpacity: 1,
+                        fillColor: '#1f78b4'
+                    };
+                }
+                
+            }).addTo(map);
+        }
         // function to update the map
         
         // function get the class breaks   
