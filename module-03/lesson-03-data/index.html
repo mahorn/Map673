@@ -49,14 +49,91 @@
         }
         p {
             font-size: 1em;
-            color: #001323;
-        }   
+            color: #cbc9e2;
+        }
+        .legend {
+            padding: 6px 8px;
+            font-size: 1em;
+            background: rgba(255,255,255,0.8);
+            color: whitesmoke;
+            box-shadow: 0 0 15px rgba(0,0,0,0.2);
+            border-radius: 5px;
+            width: 240px;
+        }
+        .legend h3 {
+            font-size: 1.1em;
+            font-weight: bold;
+            line-height: 2em;
+            color: whitesmoke;
+            margin: 0;
+        }
+        .legend ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 12px 4px 0;
+        }
+        .legend li {
+            height: 22px;
+        }
+        .legend span {
+            width: 30px;
+            height: 20px;
+            float: left;
+            margin-right: 10px;
+        }
+        #ui-controls {
+            width: 200px;
+            padding: 15px 20px 15px 20px;
+            background: rgba(75,75,75,0.8);
+            box-shadow: 0 0 15px rgba(0,0,0,0.2);
+            border-radius: 5px;
+            color: whitesmoke;
+        }
+        label {
+            font-size: 1.1em;
+            font-weight: bold;
+        }
+        #ui-controls .min {
+            float: left;
+        }
+        #ui-controls .max {
+            float: right;
+        }
+        .year-slider {
+            width: 100%;
+        }
+/*
+        .leaflet-popup-content {
+            max-width: 160px;
+        }
+        .info {
+            padding: 10px 12px;
+            font-size: 1em;
+            background: rgba(255,255,255,0.8);
+            box-shadow: 0 0 15px rgba(0,0,0,0.2);
+            border-radius: 5px;
+            text-align: right;
+        }
+        .info h3 {
+            margin: 0.3;
+            font-size: 1.1em;
+        }
+        a {
+            color: #d0e1f9;
+        }
+*/
+
     </style>
 </head>
 
 <body>
     <h1>Map Title Goes Here</h1>
     <div id='map'></div>
+    <div id='ui-controls'>
+        <label><span class= "min">2001</span><span class= "max">2013</span>
+            <input type= "range", min= "2001", step= "1", max = "2013", value= "2001", class= "year-slider"></input>
+        </label>
+    </div>
     
     <script>
         
@@ -92,9 +169,9 @@
                     
                     processData(states, data);
                 }
-            });
+            }); 
         });
- 
+        
         // function to process/bind data
         function processData(states, data) {
             for (var state in states.features) {
@@ -103,15 +180,17 @@
                         if(props.STATEFP == data.data[d].STATE_FIP) {
                             states.features[state].properties = data.data[d];
                                 break;
-                     }
+                    }
                 }
             }
+            
+            drawLegend();
+            drawMap(states);
+            createSliderUI();
         }
-        
-                    drawMap();
                     
         // function to draw the map
-        function drawMap() {
+        function drawMap(states) {
            dataLayer = L.geoJson(states, {
                 style: function(feature) {
                     return {
@@ -123,18 +202,95 @@
                 }
                 
             }).addTo(map);
+            
+            updateMap();
         }
+        
         // function to update the map
+        function updateMap() {
+            var breaks = getClassBreaks();
+                dataLayer.eachLayer(function(layer) {
+//                  console.log(layer.feature.properties);
+                        layer.setStyle({
+                            fillColor: getColor(Number(layer.feature.properties[attribute]), breaks)
+                });
+            });
+            
+            updateLegend(breaks);
+        }
         
         // function get the class breaks   
+        function getClassBreaks() {
+            var values = [];
+                dataLayer.eachLayer(function(layer) {
+                    var value = Number(layer.feature.properties[attribute]);
+                        values.push(value);
+            });
+            
+            var breaks = ss.quantile(values, [0, 0.2, 0.4, 0.6, 0.8, 1]);
+            
+                return breaks;
+        }
         
         // function to get the color value
-                
+        function getColor(d, breaks) {
+            if(d <= breaks[1]) {
+                   return '#f2f0f7';
+               } else if (d <= breaks[2]) {
+                   return '#cbc9e2';
+               } else if (d <= breaks[3]) {
+                   return '#9e9ac8';
+               } else if (d <= breaks[4]) {
+                   return '#756bb1';
+               } else if (d <= breaks[5]) {
+                   return '#54278f';
+               }  
+        }
+        
         // function to draw the legend
+        function drawLegend() {
+            var legend = L.control({position: 'topright'});
+                legend.onAdd = function(map) {
+                    var div = L.DomUtil.create('div', 'legend');
+                    
+                        return div;
+            };
+            
+            legend.addTo(map);
+        }
         
         // function to update the legend
-
+        function updateLegend(breaks) {
+            var legend = $('.legend').html("<h3>% of Unemployment in the USA: " + attribute + "</h3><ul>");
+                for (var i = 0; i < breaks.length-1; i++) {
+                    var color = getColor(breaks[i + 1], breaks);
+                        $('.legend ul').append('<li><span style="background:' + color + '"></span>' +
+                            breaks[i] + ' &mdash; ' + breaks[i + 1] + '</li>');
+            }
+            
+            legend.append("</ul>");
+        }
+        
         // function to create the range slider
+        function createSliderUI() {
+            var sliderControl = L.control({position: 'bottomleft'});
+                sliderControl.onAdd = function(map) {
+                    var slider = L.DomUtil.get('ui-controls');
+                        L.DomEvent.addListener(slider, 'mousedown', function(e) {
+                            L.DomEvent.stopPropagation(e);
+                    });
+                
+                                return slider;
+                }
+                
+            sliderControl.addTo(map);
+                $('.year-slider')
+                    .on('input change', function() {
+                        attribute = $(this).val(); 
+                
+                            updateMap();
+            });
+        }
 
     </script>
     
