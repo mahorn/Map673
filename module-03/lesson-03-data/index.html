@@ -18,9 +18,9 @@
         body {
             margin: 0;
             padding: 0;
-            background: whitesmoke;
-            font-family: Lato, sans-serif;
-            color: #0D0000;
+            background: #b6b6b4;
+            font-family: Candara;
+            color: #b6b6b4;
         }
         header {
             padding: 6px 10%;
@@ -32,8 +32,8 @@
             left: 60px;
             padding: 8px 15px;
             margin: 0; 
-            color: whitesmoke;
-            font-size: 1.5em;
+            color: #97d0cc;
+            font-size: 1.9em;
             background: rgba(25,25,25,0.8);
             border-radius: 5px;
         }
@@ -49,23 +49,24 @@
         }
         p {
             font-size: 1em;
-            color: #cbc9e2;
+            color: #97d0cc;
         }
         .legend {
             padding: 6px 8px;
             font-size: 1em;
-            background: rgba(255,255,255,0.8);
-            color: whitesmoke;
+            background: rgba(25,25,25,0.8);
+            color: #b6b6b4;
             box-shadow: 0 0 15px rgba(0,0,0,0.2);
             border-radius: 5px;
-            width: 240px;
+            width: 130px;
         }
         .legend h3 {
-            font-size: 1.1em;
+            font-size: 1em;
             font-weight: bold;
             line-height: 2em;
-            color: whitesmoke;
+            color: #97d0cc;
             margin: 0;
+            text-align: center;
         }
         .legend ul {
             list-style-type: none;
@@ -82,15 +83,15 @@
             margin-right: 10px;
         }
         #ui-controls {
-            width: 200px;
-            padding: 15px 20px 15px 20px;
-            background: rgba(75,75,75,0.8);
+            width: 176px;
+            padding: 8px 10px 8px 10px;
+            background: rgba(25,25,25,0.8);
             box-shadow: 0 0 15px rgba(0,0,0,0.2);
             border-radius: 5px;
-            color: whitesmoke;
+            color: #b6b6b4;
         }
         label {
-            font-size: 1.1em;
+            font-size: 1em;
             font-weight: bold;
         }
         #ui-controls .min {
@@ -100,34 +101,35 @@
             float: right;
         }
         .year-slider {
-            width: 100%;
+            width: 100%; 
         }
-/*
         .leaflet-popup-content {
             max-width: 160px;
+            color: #463e3f;
+            line-height: inherit;
         }
         .info {
             padding: 10px 12px;
             font-size: 1em;
-            background: rgba(255,255,255,0.8);
+            background: rgba(25,25,25,0.8);
             box-shadow: 0 0 15px rgba(0,0,0,0.2);
             border-radius: 5px;
-            text-align: right;
+            text-align: center;
         }
         .info h3 {
             margin: 0.3;
-            font-size: 1.1em;
+            font-size: 1em;
+            color: #97d0cc;
         }
         a {
-            color: #d0e1f9;
+            color: #97d0cc;
         }
-*/
 
     </style>
 </head>
 
 <body>
-    <h1>Map Title Goes Here</h1>
+    <h1>Unemployment Rates in the United States: 2001-2013</h1>
     <div id='map'></div>
     <div id='ui-controls'>
         <label><span class= "min">2001</span><span class= "max">2013</span>
@@ -153,7 +155,7 @@
 	        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="http://cartodb.com/attributions">CartoDB</a>',
 	        subdomains: 'abcd',
 	        maxZoom: 19
-        }); 
+        });
             map.addLayer(tiles);
         
         // declare global variables
@@ -187,6 +189,7 @@
             drawLegend();
             drawMap(states);
             createSliderUI();
+            drawInfo();
         }
                     
         // function to draw the map
@@ -194,13 +197,13 @@
            dataLayer = L.geoJson(states, {
                 style: function(feature) {
                     return {
-                        color: '#dddddd',
-                        weight: 1,
-                        fillOpacity: 1,
-                        fillColor: '#1f78b4'
+                        color: '#737ca1',
+                        weight: 1.1,
+                        fillOpacity: 0.9,
+                        fillColor: '#504a4b'
                     };
                 }
-                
+               
             }).addTo(map);
             
             updateMap();
@@ -209,10 +212,41 @@
         // function to update the map
         function updateMap() {
             var breaks = getClassBreaks();
-                dataLayer.eachLayer(function(layer) {
+                dataLayer.eachLayer(function(layer) {   
 //                  console.log(layer.feature.properties);
+                    var props = layer.feature.properties;
+                    
                         layer.setStyle({
-                            fillColor: getColor(Number(layer.feature.properties[attribute]), breaks)
+                            fillColor: getColor(Number(props[attribute]), breaks)
+                        });
+                    
+                        layer.bindPopup("<b><center>" + props["State_Name"] + "</b><br>" +
+                                        "Unemployment: " + "<b>" + props[attribute] + " %" + "</b>");
+                    
+                        layer.on('mouseover', function() {
+                            updateInfo(this);
+                            this.setStyle({
+                                stroke: true,
+                                color: '#ff00ff',
+                                weight: 2.5,
+                            });
+                        });
+                    
+                        layer.on('mouseout', function() {
+                            updateInfo(this);
+                            this.setStyle({
+                                stroke: true,
+                                color: '#737ca1',
+                                weight: 1.1,
+                            });
+                        }); 
+                    
+                dataLayer.on('mouseover', function() {
+                    $(".info").show();
+                });
+                    
+                dataLayer.on('mouseout', function() {
+                    $(".info").hide();
                 });
             });
             
@@ -235,15 +269,15 @@
         // function to get the color value
         function getColor(d, breaks) {
             if(d <= breaks[1]) {
-                   return '#f2f0f7';
+                   return '#beffe9';
                } else if (d <= breaks[2]) {
-                   return '#cbc9e2';
+                   return '#97d0cc';
                } else if (d <= breaks[3]) {
-                   return '#9e9ac8';
+                   return '#71a1b0';
                } else if (d <= breaks[4]) {
-                   return '#756bb1';
+                   return '#4a7293';
                } else if (d <= breaks[5]) {
-                   return '#54278f';
+                   return '#244477';
                }  
         }
         
@@ -261,11 +295,11 @@
         
         // function to update the legend
         function updateLegend(breaks) {
-            var legend = $('.legend').html("<h3>% of Unemployment in the USA: " + attribute + "</h3><ul>");
+            var legend = $('.legend').html("<h3>" + attribute + "</h3><ul>");
                 for (var i = 0; i < breaks.length-1; i++) {
                     var color = getColor(breaks[i + 1], breaks);
                         $('.legend ul').append('<li><span style="background:' + color + '"></span>' +
-                            breaks[i] + ' &mdash; ' + breaks[i + 1] + '</li>');
+                            breaks[i] + ' &mdash; ' + breaks[i + 1] + " %" + '</li>');
             }
             
             legend.append("</ul>");
@@ -290,6 +324,40 @@
                 
                             updateMap();
             });
+        }
+        
+        // function to create an empty HTML div element
+        function drawInfo() {
+            var info = L.control({position: 'bottomright'});
+            info.onAdd = function(map) {
+                var div = L.DomUtil.create('div', 'info');
+                
+                    return div;
+            }
+            
+            info.addTo(map);
+            $(".info").hide();
+        }
+        
+        // function to update the HTML div element
+        function updateInfo(layer) {
+            var props = layer.feature.properties;
+            var html = "<h3>" + props["State_Name"] + "</h3>" +
+                        "2001: " + "<b>" + props["2001"] + " % </b><br>" +
+                        "2002: " + "<b>" + props["2002"] + " % </b><br>" +
+                        "2003: " + "<b>" + props["2003"] + " % </b><br>" +
+                        "2004: " + "<b>" + props["2004"] + " % </b><br>" +
+                        "2005: " + "<b>" + props["2005"] + " % </b><br>" +
+                        "2006: " + "<b>" + props["2006"] + " % </b><br>" +
+                        "2007: " + "<b>" + props["2007"] + " % </b><br>" +
+                        "2008: " + "<b>" + props["2008"] + " % </b><br>" +
+                        "2009: " + "<b>" + props["2009"] + " % </b><br>" +
+                        "2010: " + "<b>" + props["2010"] + " % </b><br>" +
+                        "2011: " + "<b>" + props["2011"] + " % </b><br>" +
+                        "2012: " + "<b>" + props["2012"] + " % </b><br>" +
+                        "2013: " + "<b>" + props["2013"] + " % </b><br>" 
+            
+            $(".info").html(html);
         }
 
     </script>
