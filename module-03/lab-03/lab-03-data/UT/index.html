@@ -147,9 +147,9 @@
         
          // instantiate the Leaflet map
         var options = {
-            center: [37.80, -85.66],
-            zoom: 8,
-            minZoom: 8,
+            center: [39.32, -111.09],
+            zoom: 7,
+            minZoom: 7,
             maxZoom: 12,
             dragging: true,
             zoomControl: true
@@ -169,8 +169,8 @@
             attribute = "2000";
 
         // AJAX requests to load data files
-        $.getJSON("ky-counties.json", function(counties) {
-            Papa.parse('ky-unemployment-data.csv', {
+        $.getJSON("ut-counties.json", function(counties) {
+            Papa.parse('ut-unemployment-data.csv', {
                 download: true,
                 header: true,
                 complete: function (data) {
