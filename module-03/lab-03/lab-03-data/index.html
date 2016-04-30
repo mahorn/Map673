@@ -12,7 +12,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/4.1.2/papaparse.min.js"></script>
 
     <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
-    <link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Candara' rel='stylesheet' type='text/css'>
 
     <style>
         body {
@@ -129,7 +129,7 @@
 </head>
 
 <body>
-    <h1>Unemployment Rates in the United States: 2001-2013</h1>
+    <h1>Kentucky Unemployment Rates: 2000-2013</h1>
     <div id='map'></div>
     <div id='ui-controls'>
         <label><span class= "min">2000</span><span class= "max">2013</span>
@@ -141,9 +141,9 @@
         
          // instantiate the Leaflet map
         var options = {
-            center: [37.96, -85.36],
-            zoom: 7,
-            minZoom: 7,
+            center: [37.80, -85.66],
+            zoom: 8,
+            minZoom: 8,
             maxZoom: 12,
             dragging: true,
             zoomControl: true
@@ -197,8 +197,8 @@
            dataLayer = L.geoJson(counties, {
                 style: function(feature) {
                     return {
-                        color: '#737ca1',
-                        weight: 1.1,
+                        color: '#848482',
+                        weight: 0.9,
                         fillOpacity: 0.9,
                         fillColor: '#504a4b'
                     };
@@ -220,7 +220,7 @@
                             fillColor: getColor(Number(props[attribute]), breaks)
                         });
                     
-                        layer.bindPopup("<b><center>" + props["NAME"] + "</b><br>" +
+                        layer.bindPopup("<b><center>" + props["NAME"] + " County" + "</b><br>" +
                                         "Unemployment: " + "<b>" + props[attribute] + " %" + "</b>");
                     
                         layer.on('mouseover', function() {
@@ -236,7 +236,7 @@
                             updateInfo(this);
                             this.setStyle({
                                 stroke: true,
-                                color: '#737ca1',
+                                color: '#848482',
                                 weight: 1.1,
                             });
                         }); 
@@ -261,8 +261,7 @@
                         values.push(value);
             });
             
-            var breaks = ss.quantile(values, [0, 0.2, 0.4, 0.6, 0.8, 1]);
-                console.log(breaks);
+            var breaks = ss.quantile(values, [0, 0.14, 0.28, 0.43, 0.57, 0.71, 0.86, 1]);
             
                 return breaks;
         }
@@ -276,9 +275,13 @@
                } else if (d <= breaks[3]) {
                    return '#92c9c8';
                } else if (d <= breaks[4]) {
-                   return '#7caeb8';
+                   return '#71a1b0';
                } else if (d <= breaks[5]) {
-                   return '#6694a7';
+                   return '#57829d';
+               } else if (d <= breaks[6]) {
+                   return '#3d638a';
+               } else if (d <= breaks[7]) {
+                   return '#244477';
                } 
         }
         
@@ -300,7 +303,7 @@
                 for (var i = 0; i < breaks.length-1; i++) {
                     var color = getColor(breaks[i + 1], breaks);
                         $('.legend ul').append('<li><span style="background:' + color + '"></span>' +
-                            breaks[i] + ' &mdash; ' + breaks[i + 1].toLocaleString() + " %" + '</li>');
+                            breaks[i] + ' &mdash; ' + breaks[i + 1] + " %" + '</li>');
             }
             
             legend.append("</ul>");
@@ -343,7 +346,7 @@
         // function to update the HTML div element
         function updateInfo(layer) {
             var props = layer.feature.properties;
-            var html = "<h3>" + props["NAME"] + "</h3>" +
+            var html = "<h3>" + props["NAME"] + " County" + "</h3>" +
                         "2000: " + "<b>" + props["2000"] + " % </b><br>" +
                         "2001: " + "<b>" + props["2001"] + " % </b><br>" +
                         "2002: " + "<b>" + props["2002"] + " % </b><br>" +
