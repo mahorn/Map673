@@ -163,25 +163,24 @@
             attribute = "2001";
 
         // AJAX requests to load data files
-        $.getJSON("ky-counties.json", function(counties) {
-            Papa.parse('ky-unemployment-data.csv', {
+        $.getJSON("utah-states.json", function(states) {
+            Papa.parse('utah-unemployment.csv', {
                 download: true,
                 header: true,
                 complete: function (data) {
                     
-                    processData(counties, data);
+                    processData(states, data);
                 }
             }); 
         });
         
         // function to process/bind data
-        function processData(counties, data) {
-            for (var county in counties.features) {
-                var props = counties.features[county].properties;
-                console.log(props);
+        function processData(states, data) {
+            for (var state in states.features) {
+                var props = states.features[state].properties;
                     for (var d in data.data) {
-                        if(props.COUNTY_FIP == data.data[d].COUNTY_FIP) {
-                            counties.features[county].properties = data.data[d];
+                        if(props.STATEFP == data.data[d].STATE_FIP) {
+                            states.features[state].properties = data.data[d];
                                 break;
                     }
                 }
@@ -194,8 +193,8 @@
         }
                     
         // function to draw the map
-        function drawMap(counties) {
-           dataLayer = L.geoJson(counties, {
+        function drawMap(states) {
+           dataLayer = L.geoJson(states, {
                 style: function(feature) {
                     return {
                         color: '#737ca1',
@@ -221,7 +220,7 @@
                             fillColor: getColor(Number(props[attribute]), breaks)
                         });
                     
-                        layer.bindPopup("<b><center>" + props["NAME"] + "</b><br>" +
+                        layer.bindPopup("<b><center>" + props["State_Name"] + "</b><br>" +
                                         "Unemployment: " + "<b>" + props[attribute] + " %" + "</b>");
                     
                         layer.on('mouseover', function() {
@@ -343,7 +342,7 @@
         // function to update the HTML div element
         function updateInfo(layer) {
             var props = layer.feature.properties;
-            var html = "<h3>" + props["NAME"] + "</h3>" +
+            var html = "<h3>" + props["State_Name"] + "</h3>" +
                         "2001: " + "<b>" + props["2001"] + " % </b><br>" +
                         "2002: " + "<b>" + props["2002"] + " % </b><br>" +
                         "2003: " + "<b>" + props["2003"] + " % </b><br>" +
