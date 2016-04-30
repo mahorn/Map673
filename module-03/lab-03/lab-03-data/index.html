@@ -141,10 +141,10 @@
         
          // instantiate the Leaflet map
         var options = {
-            center: [38.2, -94],
-            zoom: 4,
-            minZoom: 4,
-            maxZoom: 6,
+            center: [37.96, -85.36],
+            zoom: 7,
+            minZoom: 7,
+            maxZoom: 12,
             dragging: true,
             zoomControl: true
         }
@@ -160,41 +160,41 @@
         
         // declare global variables
         var dataLayer,
-            attribute = "2001";
+            attribute = "2000";
 
         // AJAX requests to load data files
-        $.getJSON("utah-states.json", function(states) {
-            Papa.parse('utah-unemployment.csv', {
+        $.getJSON("ky-counties.json", function(counties) {
+            Papa.parse('ky-unemployment-data.csv', {
                 download: true,
                 header: true,
                 complete: function (data) {
                     
-                    processData(states, data);
+                    processData(counties, data);
                 }
             }); 
         });
         
         // function to process/bind data
-        function processData(states, data) {
-            for (var state in states.features) {
-                var props = states.features[state].properties;
+        function processData(counties, data) {
+            for (var county in counties.features) {
+                var props = counties.features[county].properties;
                     for (var d in data.data) {
-                        if(props.STATEFP == data.data[d].STATE_FIP) {
-                            states.features[state].properties = data.data[d];
+                        if(props.COUNTY_FIP == data.data[d].COUNTY) {
+                            counties.features[county].properties = data.data[d];
                                 break;
                     }
                 }
             }
             
             drawLegend();
-            drawMap(states);
+            drawMap(counties);
             createSliderUI();
             drawInfo();
         }
                     
         // function to draw the map
-        function drawMap(states) {
-           dataLayer = L.geoJson(states, {
+        function drawMap(counties) {
+           dataLayer = L.geoJson(counties, {
                 style: function(feature) {
                     return {
                         color: '#737ca1',
@@ -220,7 +220,7 @@
                             fillColor: getColor(Number(props[attribute]), breaks)
                         });
                     
-                        layer.bindPopup("<b><center>" + props["State_Name"] + "</b><br>" +
+                        layer.bindPopup("<b><center>" + props["NAME"] + "</b><br>" +
                                         "Unemployment: " + "<b>" + props[attribute] + " %" + "</b>");
                     
                         layer.on('mouseover', function() {
@@ -262,6 +262,7 @@
             });
             
             var breaks = ss.quantile(values, [0, 0.2, 0.4, 0.6, 0.8, 1]);
+                console.log(breaks);
             
                 return breaks;
         }
@@ -271,14 +272,14 @@
             if(d <= breaks[1]) {
                    return '#beffe9';
                } else if (d <= breaks[2]) {
-                   return '#97d0cc';
+                   return '#a8e4d8';
                } else if (d <= breaks[3]) {
-                   return '#71a1b0';
+                   return '#92c9c8';
                } else if (d <= breaks[4]) {
-                   return '#4a7293';
+                   return '#7caeb8';
                } else if (d <= breaks[5]) {
-                   return '#244477';
-               }  
+                   return '#6694a7';
+               } 
         }
         
         // function to draw the legend
@@ -321,7 +322,7 @@
                 $('.year-slider')
                     .on('input change', function() {
                         attribute = $(this).val(); 
-                
+               
                             updateMap();
             });
         }
@@ -342,7 +343,8 @@
         // function to update the HTML div element
         function updateInfo(layer) {
             var props = layer.feature.properties;
-            var html = "<h3>" + props["State_Name"] + "</h3>" +
+            var html = "<h3>" + props["NAME"] + "</h3>" +
+                        "2000: " + "<b>" + props["2000"] + " % </b><br>" +
                         "2001: " + "<b>" + props["2001"] + " % </b><br>" +
                         "2002: " + "<b>" + props["2002"] + " % </b><br>" +
                         "2003: " + "<b>" + props["2003"] + " % </b><br>" +
@@ -355,8 +357,7 @@
                         "2010: " + "<b>" + props["2010"] + " % </b><br>" +
                         "2011: " + "<b>" + props["2011"] + " % </b><br>" +
                         "2012: " + "<b>" + props["2012"] + " % </b><br>" +
-                        "2013: " + "<b>" + props["2013"] + " % </b><br>" 
-            
+                        "2013: " + "<b>" + props["2013"] + " % </b><br>"
             $(".info").html(html);
         }
 
