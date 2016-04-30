@@ -12,14 +12,14 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/4.1.2/papaparse.min.js"></script>
 
     <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
-    <link href='http://fonts.googleapis.com/css?family=Candara' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Josefin+Sans:700' rel='stylesheet' type='text/css'>
 
     <style>
         body {
             margin: 0;
             padding: 0;
             background: #b6b6b4;
-            font-family: Candara;
+            font-family: 'Josefin Sans', sans-serif;
             color: #b6b6b4;
         }
         header {
@@ -33,7 +33,7 @@
             padding: 8px 15px;
             margin: 0; 
             color: #97d0cc;
-            font-size: 1.9em;
+            font-size: 2.1em;
             background: rgba(25,25,25,0.8);
             border-radius: 5px;
         }
@@ -50,18 +50,20 @@
         p {
             font-size: 1em;
             color: #97d0cc;
+            font-family: 'Josefin Sans', sans-serif;
         }
         .legend {
             padding: 6px 8px;
-            font-size: 1em;
+            font-size: 1.1em;
             background: rgba(25,25,25,0.8);
             color: #b6b6b4;
             box-shadow: 0 0 15px rgba(0,0,0,0.2);
             border-radius: 5px;
             width: 130px;
+            font-family: 'Josefin Sans', sans-serif;
         }
         .legend h3 {
-            font-size: 1em;
+            font-size: 1.2em;
             font-weight: bold;
             line-height: 2em;
             color: #97d0cc;
@@ -107,19 +109,23 @@
             max-width: 160px;
             color: #463e3f;
             line-height: inherit;
+            font-family: 'Josefin Sans', sans-serif;
+            font-size: 1.1em;
         }
         .info {
             padding: 10px 12px;
-            font-size: 1em;
+            font-size: 1.1em;
             background: rgba(25,25,25,0.8);
             box-shadow: 0 0 15px rgba(0,0,0,0.2);
             border-radius: 5px;
             text-align: center;
+            font-family: 'Josefin Sans', sans-serif;
         }
         .info h3 {
             margin: 0.3;
-            font-size: 1em;
+            font-size: 1.3em;
             color: #97d0cc;
+            font-family: 'Josefin Sans', sans-serif;
         }
         a {
             color: #97d0cc;
@@ -129,7 +135,7 @@
 </head>
 
 <body>
-    <h1>Kentucky Unemployment Rates: 2000-2013</h1>
+    <h1>Kentucky Unemployment Rates: 2000 - 2013</h1>
     <div id='map'></div>
     <div id='ui-controls'>
         <label><span class= "min">2000</span><span class= "max">2013</span>
@@ -213,7 +219,6 @@
         function updateMap() {
             var breaks = getClassBreaks();
                 dataLayer.eachLayer(function(layer) {   
-//                  console.log(layer.feature.properties);
                     var props = layer.feature.properties;
                     
                         layer.setStyle({
@@ -347,20 +352,20 @@
         function updateInfo(layer) {
             var props = layer.feature.properties;
             var html = "<h3>" + props["NAME"] + " County" + "</h3>" +
-                        "2000: " + "<b>" + props["2000"] + " % </b><br>" +
-                        "2001: " + "<b>" + props["2001"] + " % </b><br>" +
-                        "2002: " + "<b>" + props["2002"] + " % </b><br>" +
-                        "2003: " + "<b>" + props["2003"] + " % </b><br>" +
-                        "2004: " + "<b>" + props["2004"] + " % </b><br>" +
-                        "2005: " + "<b>" + props["2005"] + " % </b><br>" +
-                        "2006: " + "<b>" + props["2006"] + " % </b><br>" +
-                        "2007: " + "<b>" + props["2007"] + " % </b><br>" +
-                        "2008: " + "<b>" + props["2008"] + " % </b><br>" +
-                        "2009: " + "<b>" + props["2009"] + " % </b><br>" +
-                        "2010: " + "<b>" + props["2010"] + " % </b><br>" +
-                        "2011: " + "<b>" + props["2011"] + " % </b><br>" +
-                        "2012: " + "<b>" + props["2012"] + " % </b><br>" +
-                        "2013: " + "<b>" + props["2013"] + " % </b><br>"
+                        "2000: " + "<b><span>" + props["2000"] + " % </span></b><br>" +
+                        "2001: " + "<b><span>" + props["2001"] + " % </span></b><br>" +
+                        "2002: " + "<b><span>" + props["2002"] + " % </span></b><br>" +
+                        "2003: " + "<b><span>" + props["2003"] + " % </span></b><br>" +
+                        "2004: " + "<b><span>" + props["2004"] + " % </span></b><br>" +
+                        "2005: " + "<b><span>" + props["2005"] + " % </span></b><br>" +
+                        "2006: " + "<b><span>" + props["2006"] + " % </span></b><br>" +
+                        "2007: " + "<b><span>" + props["2007"] + " % </span></b><br>" +
+                        "2008: " + "<b><span>" + props["2008"] + " % </span></b><br>" +
+                        "2009: " + "<b><span>" + props["2009"] + " % </span></b><br>" +
+                        "2010: " + "<b><span>" + props["2010"] + " % </span></b><br>" +
+                        "2011: " + "<b><span>" + props["2011"] + " % </span></b><br>" +
+                        "2012: " + "<b><span>" + props["2012"] + " % </span></b><br>" +
+                        "2013: " + "<b><span>" + props["2013"] + " % </span></b><br>"
             $(".info").html(html);
         }
 
