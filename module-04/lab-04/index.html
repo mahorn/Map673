@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset=utf-8 />
-    <title>Kenya Education 2014</title>
+    <title>Kenya Forest Cover 2015</title>
     <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
     
     <script src='https://api.mapbox.com/mapbox.js/v2.4.0/mapbox.js'></script>
@@ -31,7 +31,7 @@
     <script>
         L.mapbox.accessToken = 'pk.eyJ1IjoibWFob3JuIiwiYSI6ImNpbnV0enJ4ZTEyNG91YW0zNGF6bTlva2wifQ.7jRtxQoaV2PHlRD7fu6U-g';
         
-        var map = L.mapbox.map('map', 'mapbox.high-contrast', {
+        var map = L.mapbox.map('map', 'mapbox.light', {
             center: [-.23, 37.8],
             zoom: 7,
             minZoom: 6,
@@ -39,7 +39,7 @@
             maxBounds: L.latLngBounds([-6.22, 27.72],[5.76, 47.83])
         });
         
-        omnivore.csv('kenya_education_2014.csv').addTo(map);
+        omnivore.csv('kenya_forest_2015.csv').addTo(map);
         
     </script>
 </body>

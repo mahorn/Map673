@@ -36,6 +36,11 @@ Functional Requirements:
 	2. One data layer will be created from the data file.
 	3. Data layer will be drawn to map.
 	4. Additional information will be attached to each county to user on a click or hover.
-	
 
-	
+TASK 3:
+
+    1. Data will be encoded in a JSON or GeoJson format.
+    2. These data will consist of a single feature for each geographic county.
+    3. Each feature will also contain the data attribute.
+    4. CSV data didn't contain data of geographic coordinates for each county; these information was copied from a                different dataset.
+    
