@@ -1,4 +1,4 @@
-# Visualization of Kenya's Forest Cover: 2015
+# Visualization of Kenya's Forest Cover and Protected Areas: 2015
 
 According to the U.N. FAO, 6.1% or about 3,467,000 ha of Kenya is forested, according to FAO. Of this 18.9% ( 654,000 ) is classified as primary forest, the most biodiverse and carbon-dense form of forest. Kenya had 197,000 ha of planted forest.
 Between 1990 and 2010, Kenya lost an average of 12,050 ha or 0.32% per year. In total, between 1990 and 2010, Kenya lost 6.5% of its forest cover, or around 241,000 ha. (http://rainforests.mongabay.com/deforestation/2000/Kenya.htm).
@@ -15,13 +15,16 @@ Social and farm forestry practices have emerged as possible sustainable solution
 **1. Why are you making this product?**
 
 	* I want to visualize the forest cover for each county in Kenya.
-	* Compare forest density by county. 
+    * Visualization of Protected Areas in Kenya.
+	* Compare forest density by county.
+    * Compare forest density and protected areas in Kenya.
 
 **2. What do we want to get out of this product?**
 
     * Use it as a conservation tool.
 	* Identify important forested areas in Kenya.
-    * Idenfity higher and lower density of forested areas in Kenya.
+    * Identify higher and lower density of forested areas in Kenya.
+    * Compare relation between higher density forested areas and classification protected areas in Kenya. 
     
 **3. What do our users want to get out of this product?**
 
@@ -30,24 +33,25 @@ Social and farm forestry practices have emerged as possible sustainable solution
 
 **Content Requirements:**
 	
-	1. Data will be represented as a percentage by county and using a proportional symbol.
-	2. Data will be encoded as one circle for each county.
-	3. Area of county and area of forest cover of that county will be available for the user.
+	1. Data will be represented as a percentage by county as a choropleth map.
+    2. Data also will be represented as polygons for protected areas. (proportional symbol?)
+	2. Data will be encoded as a polygon (county) colored or shaded proportionally to the value represented for each county.
+	3. Area of county (ha) and the area of forest cover (ha) of that county will be available for the user.
 	4. Data will be displayed on a basemap for locating counties in wider geography.
-	5. A legend will inform user of the relative magnitude of the circles?
+	5. A legend will inform user of the percentage of forest cover per each county and information regarding protected areas.
 	
 **Functional Requirements:**
 
-	1. Map will load data dynamically from csv file.
-	2. One data layer will be created from the data file.
-	3. Data layer will be drawn to map.
+	1. Map will load data dynamically from csv file and json file.
+	2. Two data layers will be created from the data file (percentage of forest cover and protected areas)
+	3. Data layers will be drawn to map.
 	4. Additional information will be attached to each county to user on a click or hover.
 
 **Initial Structure:**
 
     1. Data will be encoded in a JSON or GeoJson format.
-    2. These data will consist of a single feature for each geographic county.
-    3. Each feature will also contain the data attribute.
+    2. These data will consist of a single feature for each geographic county.?
+    3. Each feature will also contain the data attribute.?
     4. CSV data didn't contain data of geographic coordinates for each county; these information was
     copied from a different dataset.
 
