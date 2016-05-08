@@ -1,4 +1,4 @@
-# Visualization of Kenya Forest Cover 2015
+# Visualization of Kenya's Forest Cover: 2015
 
 According to the U.N. FAO, 6.1% or about 3,467,000 ha of Kenya is forested, according to FAO. Of this 18.9% ( 654,000 ) is classified as primary forest, the most biodiverse and carbon-dense form of forest. Kenya had 197,000 ha of planted forest.
 Between 1990 and 2010, Kenya lost an average of 12,050 ha or 0.32% per year. In total, between 1990 and 2010, Kenya lost 6.5% of its forest cover, or around 241,000 ha. (http://rainforests.mongabay.com/deforestation/2000/Kenya.htm).
@@ -15,17 +15,18 @@ Social and farm forestry practices have emerged as possible sustainable solution
 **1. Why are you making this product?**
 
 	* I want to visualize the forest cover for each county in Kenya.
-	* See which counties have more forest cover in relationship to their area and which counties don't.
+	* Compare forest density by county. 
 
 **2. What do we want to get out of this product?**
 
     * Use it as a conservation tool.
-	* Create awareness within the population in Kenya of the importance of forests.
+	* Identify important forested areas in Kenya.
+    * Idenfity higher and lower density of forested areas in Kenya.
     
 **3. What do our users want to get out of this product?**
 
-    * Knowledge of estimate forest cover for each county in Kenya.
-	* Conservation tool.
+    * Identify important natural areas by county in Kenya. 
+	* Conservation/planning tool.
 
 **Content Requirements:**
 	
