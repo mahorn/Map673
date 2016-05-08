@@ -48,5 +48,6 @@ Social and farm forestry practices have emerged as possible sustainable solution
     1. Data will be encoded in a JSON or GeoJson format.
     2. These data will consist of a single feature for each geographic county.
     3. Each feature will also contain the data attribute.
-    4. CSV data didn't contain data of geographic coordinates for each county; these information was copied from a different dataset.
+    4. CSV data didn't contain data of geographic coordinates for each county; these information was
+    copied from a different dataset.
 
