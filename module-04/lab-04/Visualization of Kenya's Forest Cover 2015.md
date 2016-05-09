@@ -1,57 +1,46 @@
-# Visualization of Kenya's Forest Cover and Protected Areas: 2015
+# Estimation of Forest Vegetation Cover in Kenya: 2015 
 
-According to the U.N. FAO, 6.1% or about 3,467,000 ha of Kenya is forested, according to FAO. Of this 18.9% ( 654,000 ) is classified as primary forest, the most biodiverse and carbon-dense form of forest. Kenya had 197,000 ha of planted forest.
-Between 1990 and 2010, Kenya lost an average of 12,050 ha or 0.32% per year. In total, between 1990 and 2010, Kenya lost 6.5% of its forest cover, or around 241,000 ha. (http://rainforests.mongabay.com/deforestation/2000/Kenya.htm).
+**Scenario**
 
-Kenya's forests contain 476 million metric tons of carbon in living forest biomass. Biodiversity and Protected Areas: Kenya has some 1847 known species of amphibians, birds, mammals and reptiles according to figures from the World Conservation Monitoring Centre. Of these, 4.0% are endemic, meaning they exist in no other country, and 3.8% are threatened. Kenya is home to at least 6506 species of vascular plants, of which 4.1% are endemic. 6.0% of Kenya is protected under IUCN categories I-V. (http://rainforests.mongabay.com/deforestation/2000/Kenya.htm).
+Conservation International has announced a Conservation Fund over the next 4 years to promote the protection of Kenya's natural ecosistems, vegetation, and wildlife. The funding priorities will include improving the conservation of Kenyan's protected areas, forest management, and monitoring the canopy closure for each county by year. 
 
-Most Kenyan forests are under pressure. That is because of deforestation, forest fragmentation, forest degradation, over-exploitation of species and the introduction of exotic species. One of the ecological communities that have been most extensively exploited is lowland forest, the first forests to be cleared for agriculture. Because the land best suited to the growth of forests is also good agricultural land, the remaining forests in Kenya are highly fragmented. Many species are inhibited from crossing forest gaps and therefore many isolated populations will not be “rescued” or supplemented by individuals dispersing from forest fragments. Therefore, these species face additional risks of extinction. (http://www.helsinki.fi/science/taita/reports/Peltorinne_Forest_types.pdf)
+Conservation International has partnered with the Kenyan Government, and they will provide the data using Kenya's open data portal to analyze and visualize the 2015 forest vegetation cover by county (%), and the polygons data for the protected areas. 
 
-Deforestation and forest degradation can adversely affect many ecological processes impacting on e.g. soil-water relationship, but the over-exploitation of ecological resources for survival is a complex matter. To counter such process, account must be taken of the characteristics of the biophysical environment, patterns of resource use and consumption, socio-cultural conditions and the socio-economic roots of poverty. A shift from commercial re-afforestation programmes to community involvement in forest resources development would have long-term benefits that are sustainable. (http://www.helsinki.fi/science/taita/reports/Peltorinne_Forest_types.pdf)
+**1. Why are we making this product?**
 
-Social and farm forestry practices have emerged as possible sustainable solutions to environmental degradation, because these approaches favour equity, ownership and desired community participation. (http://www.helsinki.fi/science/taita/reports/Peltorinne_Forest_types.pdf)
-
-
-**1. Why are you making this product?**
-
-	* I want to visualize the forest cover for each county in Kenya.
-    * Visualization of Protected Areas in Kenya.
-	* Compare forest density by county.
-    * Compare forest density and protected areas in Kenya.
-
+	1. To visualize the density of canopy closure in Kenya by county.
+    2. To capture the distribution of protected areas in an interactive web map.
+	3. To discern if there is any correlation between our data. 
+    
 **2. What do we want to get out of this product?**
 
-    * Use it as a conservation tool.
-	* Identify important forested areas in Kenya.
-    * Identify higher and lower density of forested areas in Kenya.
-    * Compare relation between higher density forested areas and classification protected areas in Kenya. 
+    1. Use it as a conservation tool.
+	2. Display important forested areas and their distribution.
+    3. Identify higher and lower density of forested areas by county.
+    4. Compare if there is any link between higher density forested areas and protected areas.
+    5. Create a project database.
     
 **3. What do our users want to get out of this product?**
 
-    * Identify important natural areas by county in Kenya. 
-	* Conservation/planning tool.
+    1. Identify where important natural areas are located.
+    2. Visualize the percentage canopy closure for each county.
+	3. Operate this product as conservation/planning tool.
 
 **Content Requirements:**
 	
-	1. Data will be represented as a percentage by county as a choropleth map.
-    2. Data also will be represented as polygons for protected areas. (proportional symbol?)
-	2. Data will be encoded as a polygon (county) colored or shaded proportionally to the value represented for each county.
-	3. Area of county (ha) and the area of forest cover (ha) of that county will be available for the user.
-	4. Data will be displayed on a basemap for locating counties in wider geography.
-	5. A legend will inform user of the percentage of forest cover per each county and information regarding protected areas.
+	1. Data will be represented on a basemap creating a choropleth map.
+    2. Data will be encoded as a polygon colored or shaded proportionally to the value represented for each county.
+    3. Data for the protected areas will be added to the map with a basemap option, and as polygons.
+	4. The area of each county, and its forest cover will be represented in hectares.  
+	5. A legend will inform user of the % of canopy closure per county.
+    6. An info legend will be available with the protected areas information.
 	
 **Functional Requirements:**
 
-	1. Map will load data dynamically from csv file and json file.
-	2. Two data layers will be created from the data file (percentage of forest cover and protected areas)
+	1. Map will load data dynamically from a CSV and JSON file.
+	2. Two data layers will be created (% of canopy closure and protected areas).
 	3. Data layers will be drawn to map.
-	4. Additional information will be attached to each county to user on a click or hover.
-
-**Initial Structure:**
-
-    1. Data will be encoded in a JSON or GeoJson format.
-    2. These data will consist of a single feature for each geographic county.?
-    3. Each feature will also contain the data attribute.?
-    4. CSV data didn't contain data of geographic coordinates for each county; these information was
-    copied from a different dataset.
+	4. Additional information will be attached to each county, and to each protected area polygon on a click or hover.
+    5. Upon a click on a protected area polygon the map will automatically zoom in at least one level.
+    
 

@@ -39,11 +39,11 @@
             maxBounds: L.latLngBounds([-6.22, 27.72],[5.76, 47.83])
         });
         
-        //omnivore.csv('Forest_Cover_2015.csv').addTo(map);
-        
-        $.getJSON('protected-areas.json', function(data) {
+         $.getJSON('protected-areas.json', function(data) {
             L.geoJson(data).addTo(map); 
         });
+        
+        omnivore.csv('Forest_Cover_2015.csv').addTo(map);
         
     </script>
 </body>
