@@ -26,7 +26,7 @@ Conservation International has partnered with the Kenyan Government, and they wi
     2. Visualize the percentage canopy closure for each county.
 	3. Operate this product as conservation/planning tool.
 
-**Content Requirements:**
+**4. Content Requirements:**
 	
 	1. Data will be represented on a basemap creating a choropleth map.
     2. Data will be encoded as a polygon colored or shaded proportionally to the value represented for each county.
@@ -35,7 +35,7 @@ Conservation International has partnered with the Kenyan Government, and they wi
 	5. A legend will inform user of the % of canopy closure per county.
     6. An info legend will be available with the protected areas information.
 	
-**Functional Requirements:**
+**5. Functional Requirements:**
 
 	1. Map will load data dynamically from a CSV and JSON file.
 	2. Two data layers will be created (% of canopy closure and protected areas).
