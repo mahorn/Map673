@@ -1,4 +1,4 @@
-County,LAT,Lon,Forest area (ha),Total area (ha),% Forest Cover
+COUNTY,LAT,LON,Forest area (ha),Total area (ha),% Forest Cover
 Baringo,0.512912,35.952537,274157,1091197,25.12%
 Bomet,-0.690131,35.278005,33927,267196,12.70%
 Bungoma,0.737046,34.672536,45049,303123,14.86%
