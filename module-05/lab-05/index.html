@@ -36,6 +36,14 @@
     <div id="ui-slider">
         <input type="range" min="1" max="5" value="1" step="1" class="slider">
     </div>
+    
+    <path id="path" d="M0 0PEFE" stroke="none" stroke-width="0" fill="none"/>
+        <script>
+            var sink = document.getElementById("path");
+            console.log(sink);
+            sink.setAttribute("d", "MO OPEFE");
+        </script>
+
 
     <script>
         L.mapbox.accessToken = 'pk.eyJ1Ijoicmdkb25vaHVlIiwiYSI6Im5Ua3F4UzgifQ.PClcVzU5OUj17kuxqsY_Dg';
@@ -48,7 +56,7 @@
             maxBounds: L.latLngBounds([-6.22, 27.72],[5.76, 47.83])
         });
         
-        omnivore.csv('books_subject.csv')
+        omnivore.csv('books_subject_2014.csv')
             .on('ready', function(e) {
                 drawMap(e.target.toGeoJSON());
             }).on('error', function(e) {
