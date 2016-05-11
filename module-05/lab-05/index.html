@@ -8,6 +8,7 @@
     <script src='https://api.mapbox.com/mapbox.js/v2.2.4/mapbox.js'></script>
     <script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-omnivore/v0.2.0/leaflet-omnivore.min.js'></script>
     <script src='https://code.jquery.com/jquery-1.12.0.min.js'></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/simple-statistics/1.0.0/simple_statistics.min.js"></script>
 
     <link href='https://api.mapbox.com/mapbox.js/v2.2.4/mapbox.css' rel='stylesheet' />
 
@@ -62,7 +63,7 @@
                         opacity: 1,
                         weight: 1.1,
                         fillOpacity: 0.1,
-                        radius: calcRadius(feature.properties.PE1)
+                        radius: calcRadius(feature.properties.P1)
                     });
                 }
                 
@@ -75,7 +76,7 @@
                         opacity: 1,
                         weight: 1.1,
                         fillOpacity: 0,
-                        radius: calcRadius(feature.properties.FE1)
+                        radius: calcRadius(feature.properties.F1)
                     });
                 }
                 
@@ -86,11 +87,11 @@
         
         function updateSymbols(private, federal, currentSubject) {
             private.eachLayer(function(layer) {
-                layer.setRadius(calcRadius(layer.feature.properties["PE1"+currentSubject]))
+                layer.setRadius(calcRadius(layer.feature.properties["P"+currentSubject]))
             });
             
             federal.eachLayer(function(layer) {
-                layer.setRadius(calcRadius(layer.feature.properties["FE1"+currentSubject]))
+                layer.setRadius(calcRadius(layer.feature.properties["F"+currentSubject]))
             });
             
         }
