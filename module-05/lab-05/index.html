@@ -9,43 +9,73 @@
     <script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-omnivore/v0.2.0/leaflet-omnivore.min.js'></script>
     <script src='https://code.jquery.com/jquery-1.12.0.min.js'></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/simple-statistics/1.0.0/simple_statistics.min.js"></script>
-
+    
     <link href='https://api.mapbox.com/mapbox.js/v2.2.4/mapbox.css' rel='stylesheet' />
-
+    <link href='https://fonts.googleapis.com/css?family=Josefin+Sans:700' rel='stylesheet' type='text/css'>
+    
     <style>
         body {
-          margin:0;
-          padding:0;
+            margin:0;
+            padding:0;
+            font-family: 'Josefin Sans', sans-serif;
+            color: #b4b4b4;
+            font-weight: 100;
         }
         #map {
-          position:absolute;
-          top:0;
-          bottom:0;
-          width: 100%;
+            position:absolute;
+            top:0;
+            bottom:0;
+            width: 100%;
+        }
+        h1 {
+            position: absolute;
+            z-index: 100;
+            top: 20px;
+            left: 60px;
+            padding: 8px 15px;
+            margin: 0; 
+            color: #fbe9e7;
+            font-size: 2.3em;
+            background: rgba(25,25,25,0.8);
+            border-radius: 5px;
+        }
+        p {
+            font-size: 1em;
+            color: #97d0cc;
+            font-family: 'Josefin Sans', sans-serif;
         }
         #ui-slider {
             position: absolute;
             bottom: 20px;
             left: 60px;
         }
+        #subject-switcher {
+            position: absolute;
+            top: 100px;
+            right: 80px;
+            background: rgba(25,25,25,0.8);
+            border-radius: 5px;
+        }
     </style>
 </head>
 <body>
-
+    
+    <h1>Subject Books Rate by Type of School in Kenya</h1>
     <div id='map'></div>
     <div id="ui-slider">
         <input type="range" min="1" max="5" value="1" step="1" class="slider">
     </div>
+    <div id="subject-switcher">
+        <input type="radio" name="booksData" value="English" checked>English<br>
+        <input type="radio" name="booksData" value="Kiswahili" >Kiswahili<br>
+        <input type="radio" name="booksData" value="Math" >Math<br>
+        <input type="radio" name="booksData" value="Science" >Science<br>
+        <input type="radio" name="booksData" value="Social Studies" >Social Studies<br>
+    </div>
     
-    <path id="path" d="M0 0PEFE" stroke="none" stroke-width="0" fill="none"/>
-        <script>
-            var sink = document.getElementById("path");
-            console.log(sink);
-            sink.setAttribute("d", "MO OPEFE");
-        </script>
-
 
     <script>
+        
         L.mapbox.accessToken = 'pk.eyJ1Ijoicmdkb25vaHVlIiwiYSI6Im5Ua3F4UzgifQ.PClcVzU5OUj17kuxqsY_Dg';
 
         var map = L.mapbox.map('map', 'mapbox.dark', {
@@ -67,11 +97,11 @@
             var private = L.geoJson(booksData, {
                 pointToLayer: function(feature, latlng) {
                     return L.circleMarker(latlng, {
-                        color: '#138d90',
+                        color: '#fbe9e7',
                         opacity: 1,
-                        weight: 1.1,
-                        fillOpacity: 0.1,
-                        radius: calcRadius(feature.properties.PE)
+                        weight: 1,
+                        fillOpacity: 0,
+                        radius: calcRadius(feature.properties.FE)
                     });
                 }
                 
@@ -80,26 +110,28 @@
             var federal = L.geoJson(booksData, {
                   pointToLayer: function(feature, latlng) {
                     return L.circleMarker(latlng, {
-                        color: '#c29545',
-                        opacity: 1,
-                        weight: 1.1,
+                        color: '#96ecde',
+                        opacity: 0.8,
+                        weight: 1,
                         fillOpacity: 0,
-                        radius: calcRadius(feature.properties.FE)
+                        radius: calcRadius(feature.properties.PE)
                     });
                 }
                 
             }).addTo(map);
             
-            subjectUI(private, federal);
+//            subjectUI(private, federal);
+            subjectSwitcher(federal, private);
         }
         
-        function updateSymbols(private, federal, currentSubject) {
-            private.eachLayer(function(layer) {
-                layer.setRadius(calcRadius(layer.feature.properties["PE"+currentSubject]))
+        function updateSymbols(federal, private, currentSubject) {
+            federal.eachLayer(function(layer) {
+                console.log(layer);
+                layer.setRadius(calcRadius(layer.feature.properties.currentSubject))
             });
             
-            federal.eachLayer(function(layer) {
-                layer.setRadius(calcRadius(layer.feature.properties["FE"+currentSubject]))
+            private.eachLayer(function(layer) {
+                layer.setRadius(calcRadius(layer.feature.properties.currentSubject))
             });
             
         }
@@ -109,10 +141,18 @@
             return radius * .2;
         }
         
-        function subjectUI (private, federal) {
-            $('.slider')
-                .on('input change', function() {
-                updateSymbols(private, federal, $(this).val());
+//        function subjectUI(federal, private) {
+//            $('ui-slider')
+//            .on('input change', function() {
+//                console.log($(this).val());
+//            });
+//        }
+        
+        function subjectSwitcher (federal, private) {
+            $('#subject-switcher input')
+                .on('change', function(){
+                console.log($(this).val());
+                updateSymbols(federal, private, $(this).val());
                 });
         }
         
