@@ -12,55 +12,62 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     
     <link href='https://api.mapbox.com/mapbox.js/v2.2.4/mapbox.css' rel='stylesheet' />
-    <link href='https://fonts.googleapis.com/css?family=Josefin+Sans:700' rel='stylesheet' type='text/css'>
-    
+    <link href='https://fonts.googleapis.com/css?family=Handlee' rel='stylesheet' type='text/css'>
     
     <style>
         body {
             margin:0;
             padding:0;
-            font-family: 'Josefin Sans', sans-serif;
-            color: #b4b4b4;
-            font-weight: 100;
+            font-family: 'Handlee', cursive;
+            color: #488a99;
+            font-weight: 200;
         }
         #map {
             position:absolute;
             top:0;
             bottom:0;
             right:0;
-            width: 67%;
+            width: 72%;
         }
         #side-panel {
             position: absolute;
             left: 0;
             top: 0;
             bottom: 0;
-            width: 33%;
-            background: #222222;
-            border-right: 2px solid #ffffff;
+            width: 28%;
+            background: #34282c;
+            border-right: 0.8px solid #488a99;
+            border-left: 0.8px solid #488a99;
+            border-bottom: 0.8px solid #488a99;
             overflow-y: scroll;
         }
         h1 {
-            padding: 8px 25px 8px 15px;
+            padding: 20px 45px 10px 15px;
             margin: 0;
-            background: #1C9976;
-            color: whitesmoke;
-            font-weight: 400;
-            font-size: 1.5em;
-            text-align: right;
+            background: #488a99;
+            color: #dbae58;
+            font-weight: 500;
+            font-size: 1.8em;
+            text-align: center;
         }
         h2 {
             margin: 0;
             padding: 8px 25px 8px 15px;
-            color: #1C9976;
+            background: #488a99;
+            color: #b4b4b4;
             font-weight: 500;
             font-size: 1.2em;
             text-align: right;
         }
+        h3 {
+            color: #dbae58;
+            font-weight: 500;
+            font-size: 1.2em;
+        }
         #side-panel p {
-            margin: 8px 0 4px; 
+            margin: 12px 0 8px; 
             padding: 0 25px 0 15px;
-            color: #3d3d3d;
+            color: #b4b4b4;
             text-align: right;
             font-size: 1em; 
         }
@@ -71,18 +78,12 @@
         }
         #side-panel img {
             float: right;
-            margin: 0 0 15px 15px;
+            margin: 15px 15px 15px 15px;
         }   
         p {
             font-size: 1em;
-            color: #97d0cc;
-            font-family: 'Josefin Sans', sans-serif;
-        }
-        #ui-slider {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            width: 200px;
+            color: #488a99;
+            font-family: 'Handlee', cursive;
         }
         #subject-button {
             position: absolute;
@@ -94,39 +95,38 @@
         #subject {
             position: absolute;
             left: 36%;
-            bottom: 60px;
-            color: #fbe9e7;
-            font-size: 20px;  
+            top: 60px;
+            color: #488a99;
+            font-size: 27px;  
         }
         #subject span {
             font-size: 1.3em;
             font-weight: 500;
+            color: #dbae58;
         }
         #legend {
             position: absolute;
             right: 0;
-            bottom: 30px;
+            bottom: 0;
         }
         #info {
             padding: 8px 15px;
-            color: aquamarine;
+            background: rgba(25,25,25,0.6);
+            border-radius: 3px;
             position: absolute;
             font-size: 1em;
             max-width: 200px; 
-/*
-            left: 20px;
-            bottom: 30px;
-*/
             display: none;
         }
         .info p {
             margin: 3px 0 4px;
+            color:#488a99;
         }
         .private {
-            color:aqua;
+            color:#dbae58;
         }
         .federal {
-            color:aquamarine;
+            color:#ffffff;
         }
         #info span:last-child {
             font-size: 1.3em;
@@ -139,17 +139,17 @@
     <div id='map'></div>
     
     <div id='side-panel'>
-        <h1>Texbook rates by Subject in Kenya</h1>
+        <h1>Texbook Rates by Subject in Kenya</h1>
         <h2>Number of books per type of School</h2>
-    <p>Education in developing countries is often hindered by large class sizes and low teaching quality. Over the past decade many developing countries have expanded primary school access, energized by initiatives such as the United Nations Millennium Development Goals, which call for achieving universal primary education by 2015. But increased quantity has not always been matched with improved quality, and only 60 percent of appropriately aged children gain the skills necessary to attend secondary school worldwide. In sub-Saharan Africa, that number drops to only a quarter.1 There is a widespread belief that the provision of textbooks can substantially improve educational outcomes in developing countries, but there is little empirical evidence as to whether providing textbooks alone can overcome the effects of other systemic problems such as high teacher-student ratios and frequent absenteeism.</p>
-    <p><img src="lab-05/legend.png" alt="legend"</p>
+    <p>Education in developing countries is often hindered by large class sizes and low teaching quality. Over the past decade many developing countries have expanded primary school access, energized by initiatives such as the United Nations Millennium Development Goals, which call for achieving universal primary education by 2015. But increased quantity has not always been matched with improved quality.</p>
+    <p><img src="images/legend.png" alt="legend"</p>
     <p>In Kenya, 50 percent of families live below the poverty line, and high teacher absenteeism is reported in schools.2 Nevertheless the overwhelming majority of children start primary school. But some schools appear to promote only strong students to grade 8 in order to maintain high average scores on secondary school entrance exams, and those not promoted often drop out. Many students also drop out in earlier grades – 35 percent of the surveyed students in grade 3 dropped within the next three years. </p>
     <h2>About this map</h2>
     <p>Sharing textbooks is common in Kenya, and two or three students typically share a workspace. Hence, a 60 percent textbook per pupil ratio was provided in English and science, and a 50 percent ratio was provided in math, giving nearly all students shared access to a textbook. A pre-test in the form of a district exam was administered to all schools before the textbooks were distributed, and district exam scores were collected at the end of each of the subsequent program years for comparison data. Classroom activities, attendance and dropout rates were also monitored. </p>
     <h2>About the data</h2>
-    <p>This study found no evidence that textbook provision increased average test scores, or that it reduced either grade repetition or dropout rates. However, textbooks did benefit students with higher average pretest scores: those in the top 40 percent of the class saw test score increases between 0.14 and 0.22 standard deviations after one year. Textbooks increased progression to secondary school for eighth graders but did not reduce grade repetition or raise attendance in lower grades. This provides evidence for the hypothesis that the program mostly benefited strong students, since only strong students reach grade 8 and have a hope to progress to secondary school, while many students in the lower grades were actually unable to read the textbooks. Students in grade 8, a selective and academically strong group, were 5 percentage points more likely to enter secondary school in the second program year than comparison school students. </p>
+    <p>This study found no evidence that textbook provision increased average test scores, or that it reduced either grade repetition or dropout rates. However, textbooks did benefit students with higher average pretest scores: those in the top 40 percent of the class saw test score increases between 0.14 and 0.22 standard deviations after one year.</p>
     </div>
-  
+    
     <div id="subject-button">
         <input type="radio" name="textbook" value="English" checked>English<br>
         <input type="radio" name="textbook" value="Kiswahili" >Kiswahili<br>
@@ -161,7 +161,7 @@
     <div id="subject">Subject: <span>English</span></div>
     
     <div id="legend">
-        <h3># of Textbooks by Type of School</h3>
+        <h3>Number of Textbooks by County</h3>
         <svg class="legend" width="300" height="300"></svg>
     </div>
     
@@ -194,11 +194,10 @@
             var private = L.geoJson(booksData, {
                 pointToLayer: function(feature, latlng) {
                     return L.circleMarker(latlng, {
-                        color: '#fbe9e7',
+                        color: '#dbae58',
                         opacity: 1,
                         weight: 1,
-                        fillOpacity: 0
-//                        radius: calcRadius(feature.properties.PEnglish)
+                        fillOpacity: 0.1
                     });
                 }
                 
@@ -207,11 +206,10 @@
             var federal = L.geoJson(booksData, {
                   pointToLayer: function(feature, latlng) {
                     return L.circleMarker(latlng, {
-                        color: '#96ecde',
-                        opacity: 0.8,
-                        weight: 1,
-                        fillOpacity: 0
-//                        radius: calcRadius(feature.properties.FEnglish)
+                        color: '#ffffff',
+                        opacity: 0.7,
+                        weight: 0.7,
+                        fillOpacity: 0.1
                     });
                 }
                 
@@ -290,7 +288,7 @@
                 info.show();
                 
                 var props = e.layer.feature.properties;
-                console.log(props);
+                
                 $('#info p:first-child span').text(props.COUNTY);
                 $(".private span:first-child").text('(subject' + currentSubject +')');
                 $(".federal span:first-child").text('(subject' + currentSubject +')');
@@ -314,7 +312,7 @@
                     if(info.offset().left + info.width() >= $(document).width() - 40) {
                         info.css({"left": e.pageX - info.width() - 30});
             }
-
+                
             });
         }
     
