@@ -42,13 +42,13 @@
             overflow-y: scroll;
         }
         h1 {
-            padding: 20px 45px 10px 15px;
+            padding: 20px 22px 10px 15px;
             margin: 0;
             background: #488a99;
             color: #dbae58;
             font-weight: 500;
             font-size: 1.8em;
-            text-align: center;
+            text-align: right;
         }
         h2 {
             margin: 0;
@@ -63,6 +63,7 @@
             color: #dbae58;
             font-weight: 500;
             font-size: 1.2em;
+            text-align: center;
         }
         #side-panel p {
             margin: 12px 0 8px; 
@@ -274,9 +275,9 @@
                 var radiusValue = circles[circle];
                 var actualValue = reverseCalc(radiusValue);
               
-                svgCircle += '<circle cx="100" cy="' + (radiusValue - 180) * -1 + '" r="' + radiusValue + 
-                    '"stroke="#96ecde" stroke-width="1" fill="black" />';
-                svgCircle += '<text x="'+ 80 +'" y ="' + (radiusValue - 140) * -1 +'" fill="#96ecde">'+ actualValue +                                  '</text>'    
+                svgCircle += '<circle cx="140" cy="' + (radiusValue - 240) * -1 + '" r="' + radiusValue + 
+                    '"stroke="#488a99" stroke-width="1" fill="black" />';
+                svgCircle += '<text x="'+ 120 +'" y ="' + (radiusValue - 205) * -1 +'" fill="#488a99">'+ actualValue +                                  '</text>'    
             }
             
             legend.html(svgCircle);
