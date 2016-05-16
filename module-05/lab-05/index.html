@@ -42,7 +42,7 @@
             overflow-y: scroll;
         }
         h1 {
-            padding: 20px 22px 10px 15px;
+            padding: 18px 22px 2px 25px;
             margin: 0;
             background: #488a99;
             color: #dbae58;
@@ -79,7 +79,7 @@
         }
         #side-panel img {
             float: right;
-            margin: 15px 15px 15px 15px;
+            margin: 5px 15px 15px 15px;
         }   
         p {
             font-size: 1em;
@@ -95,6 +95,8 @@
         }
         #subject {
             position: absolute;
+            padding: 8px 15px;
+            background: rgba(25,25,25,0.6);
             left: 36%;
             top: 60px;
             color: #488a99;
@@ -107,7 +109,7 @@
         }
         #legend {
             position: absolute;
-            right: 0;
+            right: 20px;
             bottom: 0;
         }
         #info {
@@ -140,15 +142,16 @@
     <div id='map'></div>
     
     <div id='side-panel'>
-        <h1>Texbook Rates by Subject in Kenya</h1>
-        <h2>Number of books per type of School</h2>
-    <p>Education in developing countries is often hindered by large class sizes and low teaching quality. Over the past decade many developing countries have expanded primary school access, energized by initiatives such as the United Nations Millennium Development Goals, which call for achieving universal primary education by 2015. But increased quantity has not always been matched with improved quality.</p>
+    <h1>Textbook Provision in Kenya's Private and Public Schools</h1>
+    <h2>Number of textbooks per school subject</h2>
+    <p>Education in developing countries is often hindered by large class sizes and low teaching quality. Over the past decade many developing countries have expanded primary school access, nevertheless the increase quantity has not always been matched with improved quality. There is a widespread belief that the provision of textbooks can substantially improve educational outcomes in developing countries, but there is little empirical evidence as to whether providing textbooks alone can overcome the effects of other systemic problems such as high teacher-student ratios and frequent absenteeism (Glewwe, P., Michael K., and Sylvie M. 2009. "Many Children Left Behind? Textbooks and Test Scores in Kenya." American Economic Journal: Applied Economics 1(1): 112-35).</p>
     <p><img src="images/legend.png" alt="legend"</p>
-    <p>In Kenya, 50 percent of families live below the poverty line, and high teacher absenteeism is reported in schools.2 Nevertheless the overwhelming majority of children start primary school. But some schools appear to promote only strong students to grade 8 in order to maintain high average scores on secondary school entrance exams, and those not promoted often drop out. Many students also drop out in earlier grades – 35 percent of the surveyed students in grade 3 dropped within the next three years. </p>
     <h2>About this map</h2>
-    <p>Sharing textbooks is common in Kenya, and two or three students typically share a workspace. Hence, a 60 percent textbook per pupil ratio was provided in English and science, and a 50 percent ratio was provided in math, giving nearly all students shared access to a textbook. A pre-test in the form of a district exam was administered to all schools before the textbooks were distributed, and district exam scores were collected at the end of each of the subsequent program years for comparison data. Classroom activities, attendance and dropout rates were also monitored. </p>
+    <p>This map is comparing the number of textbooks between private and public schools in Kenya. The school subjects chosen included: English, Kiswahili, Math, Science and Social Studies. Kenyan students are extremely heterogeneous in their family background, preparation for schooling, and economic circumstances. Furthermore, 50 percent of families live below the poverty line, and high teacher absenteeism is reported in many schools. Primary school is provided at a low cost, with some expenses, such as textbooks, paid by parents (Glewwe, P., Michael K., and Sylvie M. 2009. "Many Children Left Behind? Textbooks and Test Scores in Kenya." American Economic Journal: Applied Economics 1(1): 112-35).</p>
+    <p>Additionally, sharing textbooks is common in Kenya, and two or three students typically share a workspace. Nevertheless, the cost of textbooks is a key barrier that prevents children from having access to the learning materials they need (Global Education Monitoring Report, Every Child Should Have a Textbook, 2016).</p>
     <h2>About the data</h2>
-    <p>This study found no evidence that textbook provision increased average test scores, or that it reduced either grade repetition or dropout rates. However, textbooks did benefit students with higher average pretest scores: those in the top 40 percent of the class saw test score increases between 0.14 and 0.22 standard deviations after one year.</p>
+    <p>This data was obtained from the Kenyan Open Data Portal and Open Africa by Code for Africa.</p>
+    <p>Map by Maria Renee Horn.</p>
     </div>
     
     <div id="subject-button">
@@ -162,7 +165,7 @@
     <div id="subject">Subject: <span>English</span></div>
     
     <div id="legend">
-        <h3>Number of Textbooks by County</h3>
+        <h3>Number of Textbooks per Subject</h3>
         <svg class="legend" width="300" height="300"></svg>
     </div>
     
@@ -182,6 +185,34 @@
             minZoom: 6,
             maxZoom: 9,
             maxBounds: L.latLngBounds([-6.22, 27.72],[5.76, 47.83])
+        });
+        
+        var counties = $.getJSON("Kenya_county.json", function(data) {
+            L.geoJson(data, {
+                style: function(feature) {
+                    return {
+                        color:'#b4b4b4',
+                        weight: 0.7,
+                        fillOpacity: 0.5,
+                        fillColor: '#34282c'
+                    };
+                },    
+                onEachFeature: function(feature,layer) {
+                    layer.on('mouseover', function(e) {
+                        e.target.setStyle({
+                            color: '#488a99',
+                            fillColor: '#488a99'
+                            });
+                        });
+                    layer.on('mouseout', function(e) {
+                        e.target.setStyle({
+                            color: '#b4b4b4',
+                            fillColor: '#34282c'
+                            });
+                        });
+                }
+                
+            }).addTo(map).bringToBack();
         });
         
         omnivore.csv('books_subject.csv')
@@ -222,15 +253,13 @@
         }
         
         function updateSymbols(private, federal, currentSubject) {
-           
             var allRadii = [],
                 radius;
             
             private.eachLayer(function(layer) {
                 radius = calcRadius(layer.feature.properties["P"+currentSubject]);
                 layer.setRadius(radius)
-                allRadii.push(radius);
-                
+                allRadii.push(radius);  
             });
            
              federal.eachLayer(function(layer) {
@@ -247,7 +276,6 @@
             var radius = Math.sqrt(val/Math.PI);
             return radius * .2;
         }
-        
         
         function subjectButton (private, federal) {
             $('#subject-button input')
@@ -277,7 +305,7 @@
               
                 svgCircle += '<circle cx="140" cy="' + (radiusValue - 240) * -1 + '" r="' + radiusValue + 
                     '"stroke="#488a99" stroke-width="1" fill="black" />';
-                svgCircle += '<text x="'+ 120 +'" y ="' + (radiusValue - 205) * -1 +'" fill="#488a99">'+ actualValue +                                  '</text>'    
+                svgCircle += '<text x="'+ 123 +'" y ="' + (radiusValue - 207) * -1 +'" fill="#488a99">'+ actualValue +                                  '</text>'    
             }
             
             legend.html(svgCircle);
@@ -285,11 +313,10 @@
         
         function infoWindow(private, federal, currentSubject) {
             var info = $('#info');
-            federal.on('mouseover', function(e) {
-                info.show();
+                federal.on('mouseover', function(e) {
+                    info.show();
                 
-                var props = e.layer.feature.properties;
-                
+            var props = e.layer.feature.properties;
                 $('#info p:first-child span').text(props.COUNTY);
                 $(".private span:first-child").text('(subject' + currentSubject +')');
                 $(".federal span:first-child").text('(subject' + currentSubject +')');
@@ -297,7 +324,7 @@
                 $(".private span:last-child").text(props['P'+String(currentSubject)].toLocaleString()+' textbooks');
                 $(".federal span:last-child").text(props['F'+String(currentSubject)].toLocaleString()+' textbooks');
                 
-                e.layer.setStyle({ fillOpacity: .6 });
+                e.layer.setStyle({ fillOpacity: .4 });
             })
             
             federal.on('mouseout', function(e) {
@@ -309,14 +336,14 @@
                 info.css({"left": e.pageX + 6, "top": e.pageY - info.height() - 15});
                     if(info.offset().top < 4) {
                         info.css({"top": e.pageY + 15});
-            } 
+                } 
                     if(info.offset().left + info.width() >= $(document).width() - 40) {
                         info.css({"left": e.pageX - info.width() - 30});
-            }
+                }
                 
             });
         }
-    
+        
     </script>
 </body>
 </html>
