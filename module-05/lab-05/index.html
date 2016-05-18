@@ -78,8 +78,9 @@
             clear: both;
         }
         #side-panel img {
-            float: right;
+           
             margin: 5px 15px 15px 15px;
+            width: 90%;
         }   
         p {
             font-size: 1em;
@@ -97,8 +98,8 @@
             position: absolute;
             padding: 8px 15px;
             background: rgba(25,25,25,0.6);
-            left: 36%;
-            top: 60px;
+            right: 20px;
+            top: 20px;
             color: #488a99;
             font-size: 27px;  
         }
@@ -111,6 +112,9 @@
             position: absolute;
             right: 20px;
             bottom: 0;
+        }
+        #legend h3 {
+            margin-top: 0;
         }
         #info {
             padding: 8px 15px;
@@ -145,7 +149,7 @@
     <h1>Textbook Provision in Kenya's Private and Public Schools</h1>
     <h2>Number of textbooks per school subject</h2>
     <p>Education in developing countries is often hindered by large class sizes and low teaching quality. Over the past decade many developing countries have expanded primary school access, nevertheless the increase quantity has not always been matched with improved quality. There is a widespread belief that the provision of textbooks can substantially improve educational outcomes in developing countries, but there is little empirical evidence as to whether providing textbooks alone can overcome the effects of other systemic problems such as high teacher-student ratios and frequent absenteeism (Glewwe, P., Michael K., and Sylvie M. 2009. "Many Children Left Behind? Textbooks and Test Scores in Kenya." American Economic Journal: Applied Economics 1(1): 112-35).</p>
-    <p><img src="images/legend.png" alt="legend"</p>
+    <p><img src="images/legend.png" alt="legend" /></p>
     <h2>About this map</h2>
     <p>This map is comparing the number of textbooks between private and public schools in Kenya. The school subjects chosen included: English, Kiswahili, Math, Science and Social Studies. Kenyan students are extremely heterogeneous in their family background, preparation for schooling, and economic circumstances. Furthermore, 50 percent of families live below the poverty line, and high teacher absenteeism is reported in many schools. Primary school is provided at a low cost, with some expenses, such as textbooks, paid by parents (Glewwe, P., Michael K., and Sylvie M. 2009. "Many Children Left Behind? Textbooks and Test Scores in Kenya." American Economic Journal: Applied Economics 1(1): 112-35).</p>
     <p>Additionally, sharing textbooks is common in Kenya, and two or three students typically share a workspace. Nevertheless, the cost of textbooks is a key barrier that prevents children from having access to the learning materials they need (Global Education Monitoring Report, Every Child Should Have a Textbook, 2016).</p>
@@ -165,14 +169,14 @@
     <div id="subject">Subject: <span>English</span></div>
     
     <div id="legend">
-        <h3>Number of Textbooks per Subject</h3>
         <svg class="legend" width="300" height="300"></svg>
+        <h3>Number of Textbooks per Subject</h3>
     </div>
     
     <div id="info">
         <p>County: <span></span></p>
-        <p class='private'>Private school: <span></span></span></span></p>
-        <p class='federal'>Public school: <span></span></span></span></p>
+        <p class='private'>Private school: <span></span><span></span></p>
+        <p class='federal'>Public school: <span></span><span></span></p>
     </div>
 
     <script>
@@ -290,8 +294,9 @@
             var legend = $('.legend')
             var circles = {
                 max: ss.max(allRadii),
-                median: ss.median(allRadii),
-                min: ss.min(allRadii)
+                median: ss.median(allRadii)
+//                ,
+//                min: ss.min(allRadii)
             }
             
             var svgCircle = '';
@@ -303,9 +308,9 @@
                 var radiusValue = circles[circle];
                 var actualValue = reverseCalc(radiusValue);
               
-                svgCircle += '<circle cx="140" cy="' + (radiusValue - 240) * -1 + '" r="' + radiusValue + 
+                svgCircle += '<circle cx="140" cy="' + (radiusValue - 300) * -1 + '" r="' + radiusValue + 
                     '"stroke="#488a99" stroke-width="1" fill="black" />';
-                svgCircle += '<text x="'+ 123 +'" y ="' + (radiusValue - 207) * -1 +'" fill="#488a99">'+ actualValue +                                  '</text>'    
+                svgCircle += '<text x="'+ 123 +'" y ="' + (radiusValue - 267) * -1 +'" fill="#488a99">'+ actualValue +                                  '</text>'    
             }
             
             legend.html(svgCircle);
