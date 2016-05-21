@@ -9,7 +9,8 @@ Kentucky State Nature Preserves Commission will provide the database for the pro
 **1. Why are we making this product?**
 
 	1. To redesign the KSNPC website and the Kentucky Rare Plant Database.
-    2. To capture the distribution of Endangered, Threatened and Species of Concern Plants monitored by KSNPC in an interactive web map.
+    2. To capture the distribution of Endangered, Threatened and Species of Concern Plants monitored by KSNPC 
+       in an interactive web map.
 	3. To make the information user-friendly. 
     
 **2. What do we want to get out of this product?**
@@ -29,8 +30,10 @@ Kentucky State Nature Preserves Commission will provide the database for the pro
 	1. Data will be represented on a basemap creating a choropleth map.
     2. Data will be encoded as a polygon colored or shaded proportionally to the value represented for each county by Species.
     3. Count by Species will be represented on a basemap creating a proportional symbol map.
-	4. A legend will inform user of specific information regarding the selected species for the choropleth and proportional symbols map (comun name, scientific name, family, etc).  
-	5. An info legend will be available with species picture and more information available (habitat, description, phenology, etc). 
+	4. A legend will inform user of specific information regarding the selected species for the choropleth and proportional 
+       symbols map (comun name, scientific name, family, etc).  
+	5. An info legend will be available with species picture and more information available (habitat, description, phenology,
+       etc). 
 	
 **5. Functional Requirements:**
 
