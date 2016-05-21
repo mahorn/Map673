@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>673 Module 06 CartoDB Starter Template</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+
+    <link rel="stylesheet" href="http://libs.cartocdn.com/cartodb.js/v3/3.15/themes/css/cartodb.css" />
+    <link href='https://fonts.googleapis.com/css?family=Poiret+One' rel='stylesheet' type='text/css'>
+    
+    <style>
+        html, body, #map {
+            height: 100%;
+            padding: 0;
+            margin: 0;
+            background: #3d3d3d;
+            font-weight: bold;
+            font-family: 'Poiret One', cursive;
+        }
+        h1 {
+            color: #bcccd8;
+            text-align: left;
+            font-size: 3em; 
+            position: absolute;
+            top: 25px;
+            right: 60px;
+        }
+         footer {
+            padding: 2px 4%;
+            width: 26%;
+            position: absolute;
+            top: 120px;
+            left: 80px;
+            text-align: center;
+        }
+        p {
+            font-size: 1em;
+            color: #b5b5b7;
+        }
+        .legend-selector {
+        position:absolute;
+        top: 20px; right: 20px;
+        margin: 0; padding: 0;
+        z-index: 100;
+      }
+      .legend-selector li {
+        display:inline-block;
+        margin: 0 0 0 10px; padding: 0;
+        list-style:none;
+      }
+      .legend-selector li a {
+        display:block;
+        text-decoration:none;
+        text-align:center;
+        font: normal 13px "Helvetica",Arial;
+        color: #858585;
+        webkit-box-shadow: rgba(0, 0, 0, 0.2) 0 0 4px 2px;
+        -moz-box-shadow: rgba(0, 0, 0, 0.2) 0 0 4px 2px;
+        box-shadow: rgba(0, 0, 0, 0.2) 0 0 4px 2px;
+        -webkit-border-radius: 4px;
+        -moz-border-radius: 4px;
+        -ms-border-radius: 4px;
+        -o-border-radius: 4px;
+        border-radius: 4px;
+        border: 1px solid #999;
+        background: #FFF;
+        z-index: 5;
+        padding: 10px;
+      }
+      .legend-selector li a.selected {
+        background:#b5ccd8;
+      }
+    </style>
+</head>
+<body>
+    <ul class="legend-selector> </ul>"
+
+    <div id="map"></div>
+    
+    <h1>Kentucky Bird Observations</h1>
+     <footer>
+        <p>This Map shows bird observations of Kentucky Imperiled/Vulnerable species from 2014 eBird observation records. The eBird observation records were obtained in May 2015 from Cornell's eBird website.</p>
+        <p>Source: eBird Basic Dataset. Version: EBD_relMay-2015. Cornell Lab of Ornithology, Ithaca, New York. May 2015. CRS: WGS 84.</p>
+        <p>Map authored by Maria Renee Horn.</p>
+        
+    </footer>
+    
+    <script src="http://libs.cartocdn.com/cartodb.js/v3/3.15/cartodb.js"></script>
+    
+    <script type="cartocss/html" id="counties-styles">
+
+            #number_of_birds_in_counties{
+                polygon-fill: #b5b5b7;
+                polygon-opacity: 0.5;
+                line-color: #bcccd8;
+                line-width: 0.3;
+                line-opacity: 1;
+            }
+            #number_of_birds_in_counties [ pntcnt <= 628] {
+            polygon-fill: #98a50f;
+            }
+            #number_of_birds_in_counties [ pntcnt <= 335] {
+            polygon-fill: #e45641;
+            }
+            #number_of_birds_in_counties [ pntcnt <= 197] {
+            polygon-fill: #FFA300;
+            }
+            #number_of_birds_in_counties [ pntcnt <= 43] {
+            polygon-fill: #f2edd8;
+            }
+            #number_of_birds_in_counties [ pntcnt <= 42] {
+            polygon-fill: #96c0ce;
+            }
+            #number_of_birds_in_counties [ pntcnt <= 8] {
+            polygon-fill: #74828f;
+            }
+            #number_of_birds_in_counties [ pntcnt <= 4] {
+            polygon-fill: #525564;
+            }
+    </script>
+    
+    <script>
+     
+        var map = new L.Map("map", {
+            center: [38, -86],
+            zoom: 7.4
+        });
+        
+//        var url = 'https://macaraya.cartodb.com/api/v2/viz/a8ddc6d2-1d49-11e6-b780-0e31c9be1b51/viz.json';
+////     
+//        cartodb.createLayer(map, url).addTo(map).done(function(layer) {
+//            cartodb.vis.VIS.addInfowindow(map, layer.getSubLayer(0), ['name'])
+//        });
+        
+        var cartoCSS =  '#number_of_birds_in_counties{'+
+                        'polygon-fill: #b5b5b7;'+
+                        'polygon-opacity: 0.5;'+
+                        'polygon-comp-op: lighten;'+
+                        'line-color: #bcccd8;'+
+                        'line-width: 0.3;'+
+                        'line-opacity: 1;'+
+                        '}'
+        
+        var sourceObject = {
+            user_name: 'macaraya',
+            type: 'cartodb',
+            sublayers: [{
+                    sql: "SELECT * FROM number_of_birds_in_counties",
+                    cartocss: $("#counties-styles").text(),
+                    }]
+        }
+
+        cartodb.createLayer(map, sourceObject).addTo(map).done(function(layer) {
+                                                                  
+            var legend = new cdb.geo.ui.Legend({
+                type: "custom",
+                show_title: true,
+                title: "Observations per County",
+                background: "#96c0ce",
+                padding: "#96c0ce",
+                data: [
+                    { name: "0 - 4", value: "#525564" },
+                    { name: "5 - 8", value: "#74828f" },
+                    { name: "9 - 42", value: "#96c0ce" },
+                    { name: "43", value: "#f2edd8" },
+                    { name: "44 - 196", value: "#FFA300" },
+                    { name: "197 - 334", value: "#e45641" },
+                    { name: "335 - 628", value: "#98a50f" }
+                    ]
+            });
+            
+            $('#map').append(legend.render().el);    
+        });
+        
+        $.getJSON('https://macaraya.cartodb.com/api/v2/sql?format=GeoJSON&q=SELECT * FROM number_of_birds_in_counties',
+                function(data) {
+//                    console.log(data);
+            L.geoJson(data, {
+               style: function(feature) {
+                    return {
+                        color: '#b5b5b7',
+                        weight: 0.3                        
+                    }
+                },
+                
+                onEachFeature: function(feature, layer) {
+//                    console.log(feature, layer);
+                    layer.bindPopup('<center>' + feature.properties.name + ' County' + '<br><center> Bird Observations: ' +
+                                   feature.properties.pntcnt),
+                        
+                    layer.on('mouseover', function(e) {
+                        e.target.setStyle({
+                            stroke: true,
+                            color: '#ff0038',
+                            weight: 2,
+                        });
+                    });
+                    
+                    layer.on('mouseout', function(e) {
+                        e.target.setStyle({
+                            stroke: true,
+                            color: '#bcccd8',
+                            weight: 0.3,
+                        });
+                    });
+                }
+                    
+            }).addTo(map).bringToFront();
+        });
+      
+    </script>
+</body>
+</html>
