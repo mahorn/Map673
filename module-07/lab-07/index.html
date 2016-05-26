@@ -74,7 +74,7 @@
     queue()
         .defer(d3.json, 'us-counties-topo.json')
         .defer(d3.json, 'na_land_clipped.json')
-        .defer(d3.csv, 'earthquake.csv')
+        .defer(d3.csv, 'us-earthquake.csv')
         .await(makeMap);
     
     function makeMap(error, counties, na, earthquake) { 

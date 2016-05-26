@@ -1,0 +1,218 @@
+region,name,lat,lon,date,magnitude,type,stations
+Alaska,Southeastern Alaska,59,-136.656,6/4/14,5.7,Mw,3
+Alaska,Southern Alaska,61.939,-150.704,6/22/09,5.5,Mw,8
+Alaska,Nelchina,61.59,-146.404,8/25/04,5.3,Mw,3
+Alaska,Rampart,65.284,-150.04,4/2/03,5,ML,1
+Alaska,Denali,63.5375,-147.444,11/3/02,7.9,Mw,30
+Alaska,Nenana Mountain,63.5144,-148.11,10/23/02,6.7,Mw,38
+Alaska,"SE Anchorage, Alaska 1",61.2076,-149.7294,2/6/02,5,ML,12
+Alaska,"SE Anchorage, Alaska 2",61.1684,-149.7317,2/6/02,5,ML,9
+Alaska,Alaska Peninsula,59.025,-155.116,7/28/01,6.6,Mw,1
+Alaska,Central Alaska,63.884,-150.15,11/29/00,5.8,Mw,1
+Alaska,SE Alaska,60.6433,-141.5933,2/28/79,7.4,Mw,3
+Alaska,Anchorage,61.909,-149.738,1/1/75,5.9,mb,4
+Alaska,"Adak, Alaska",51.433,-177.213,5/2/71,7.1,ML,1
+Arkansas,Enola 1,35.18,-92.23,7/5/82,3.8,ML,4
+Arkansas,Enola 2,35.19,-92.24,6/26/82,3,ML,7
+California,South Napa Earthquake,38.22,-122.313,8/24/14,6,Mw,285
+California,La Habra Earthquake,33.93,-117.92,3/29/14,5.1,Mw,275
+California,Ferndale Earthquake,40.829,-125.134,3/10/14,6.8,Mw,17
+California,Canyondam,40.19,-121.06,5/24/13,5.7,Mw,14
+California,New Idria,36.31,-120.86,10/21/12,5.3,ML,28
+California,Brawley,33.024,-115.549,8/26/12,5.5,ML,18
+California,Westmorland 1,33.019,-115.546,8/26/12,5.3,ML,11
+California,Calexico 1,32.106,-115.201,2/14/12,4.9,Mw,2
+California,Northern California (Weitchpec),41.143,-123.79,2/13/12,5.6,Mw,14
+California,Borrego Springs,33.42,-116.489,7/7/10,5.5,Mw,236
+California,Ocotillo,32.7,-115.921,6/15/10,5.8,Mw,109
+California,Sierra El Mayor,32.297,-115.278,4/4/10,7.2,Mw,389
+California,Ferndale 1,40.412,-124.961,2/4/10,5.9,Mw,13
+California,Ferndale 2,40.652,-124.692,1/10/10,6.5,Mw,21
+California,Calexico 2,32.437,-115.165,12/30/09,5.9,Mw,22
+California,Olancha 1,36.391,-117.861,10/3/09,5.2,Mw,3
+California,Olancha 2,36.388,-117.858,10/1/09,5.1,Mw,5
+California,Calexico 3,32.381,-115.267,9/19/09,5.2,Mw,6
+California,Barstow,34.813,-116.419,12/6/08,5.1,Mw,20
+California,Calexico 4,32.412,-115.333,11/20/08,4.6,mb,4
+California,Chino Hills,33.953,-117.761,7/29/08,5.5,Mw,341
+California,Willow Creek,40.836,-123.497,4/30/08,5.4,Mw,10
+California,Cerro Prieto 1,32.468,-115.317,2/19/08,5.1,Mw,4
+California,Cerro Prieto 2,32.439,-115.317,2/11/08,5.1,Mw,12
+California,Cerro Prieto 3,32.456,-115.315,2/9/08,5.1,Mw,14
+California,Alum Rock,37.434,-121.774,10/31/07,5.6,Mw,146
+California,"Trinidad, CA",41.116,-124.824,6/25/07,5,Mw,9
+California,Petrolia 1,40.375,-125.016,5/9/07,5.4,Mw,2
+California,Lafayette,37.901,-122.098,3/2/07,4.2,Mw,56
+California,Offshore Northern California 1,40.642,-124.87,2/26/07,5.4,Mw,11
+California,Offshore Northern California 2,40.281,-124.426,7/19/06,5,Mw,3
+California,Obsidian Butte,33.16,-115.637,9/2/05,5.1,Mw,12
+California,Greater Los Angeles,34.058,-117.011,6/16/05,4.9,Mw,55
+California,Off the Coast of Northern California,41.328,-125.868,6/15/05,7.2,Mw,14
+California,Anza 1,33.533,-116.578,6/12/05,5.2,Mw,121
+California,Mettler,35.027,-119.178,4/16/05,4.6,Mw,12
+California,Parkfield Aftershock,35.984,-120.55,9/30/04,5,Mw,3
+California,Keene,35.389,-118.472,9/29/04,5,ML,1
+California,Parkfield 1,35.815,-120.374,9/28/04,6,Mw,97
+California,Adobe Hills 1,38.009,-118.668,9/18/04,5.4,Mw,8
+California,Adobe Hills 2,38.0009,-118.679,9/18/04,5.5,Mw,8
+California,San Clemente Island,32.376,-117.848,6/15/04,5.2,ML,23
+California,San Simeon,35.706,-121.102,12/22/03,6.5,Mw,71
+California,Humboldt Hill,40.984,-125.596,8/15/03,5.1,ML,1
+California,Big Bear City,34.31,-116.848,2/22/03,5.4,ML,113
+California,Yorba Linda,33.917,-117.776,9/3/02,4.8,ML,23
+California,Bayview,40.829,-124.606,6/17/02,5.3,Mw,3
+California,Gilroy,36.967,-121.6,5/14/02,4.9,Mw,35
+California,Anza 2,33.5083,-116.5143,10/31/01,5.1,ML,73
+California,Mohawk Valley,39.8105,-120.6165,8/10/01,5.4,ML,4
+California,Big Bear Lake,34.2895,-116.9458,2/10/01,5.1,ML,49
+California,Yountville,38.377,-122.414,9/3/00,5,Mw,28
+California,Hector Mine,34.574,-116.291,10/16/99,7.1,Mw,96
+California,Redding,40.624,-122.407,11/26/98,5.2,ML,3
+California,San Juan Bautista,36.7533,-121.4622,8/12/98,5.2,Mw,3
+California,Parkfield 2,35.861,-120.504,12/20/94,5,Mw,2
+California,South Lake Tahoe,38.823,-119.632,9/12/94,6.1,Ms,1
+California,Eureka 1,40.424,-125.844,9/1/94,7.2,Mw,3
+California,Northridge Aftershock 1,34.23,-118.47,3/20/94,5.3,Mw,2
+California,Northridge Aftershock 2,34.31,-118.58,1/29/94,5.1,ML,4
+California,Northridge,34.2057,-118.5539,1/17/94,6.7,Mw,266
+California,Big Bear,34.21,-116.826,6/28/92,6.4,Mw,47
+California,Landers,34.201,-116.436,6/28/92,7.3,Mw,127
+California,Cape Mendocino/Petrolia 1,40.38,-124.57,4/26/92,6.6,Ms,11
+California,Cape Mendocino/Petrolia 2,40.42,-124.6,4/26/92,6.6,Ms,11
+California,Cape Mendocino/Petrolia 3,40.3338,-124.2294,4/25/92,7,Mw,14
+California,Joshua Tree,33.97,-116.32,4/23/92,6.1,Mw,5
+California,Petrolia 2,40.282,-124.244,8/17/91,6,ML,6
+California,Sierra Madre,34.2591,-118.001,6/28/91,5.6,Mw,12
+California,Upland,34.1437,-117.6973,2/28/90,5.2,ML,4
+California,Loma Prieta/Santa Cruz Mountains,37.0407,-121.8829,10/18/89,7,Mw,89
+California,Superstition Hills,33.0222,-115.8314,11/24/87,6.6,Mw,11
+California,Elmore Ranch,33.083,-115.775,11/24/87,6.2,Mw,1
+California,Whittier Aftershock,34.06,-118.1035,10/4/87,5.3,,10
+California,Whittier Narrows,34.0493,-118.081,10/1/87,6.1,Mw,121
+California,Chalfant Valley aftershock 1,37.592,-118.473,7/31/86,5.8,ML,2
+California,Chalfant Valley aftershock 2,37.569,-118.525,7/21/86,5.6,ML,3
+California,Chalfant Valley,37.5383,-118.443,7/21/86,6.4,ML,9
+California,Chalfant Valley foreshock,37.5767,-118.449,7/20/86,5.9,ML,5
+California,Oceanside,32.97,-117.87,7/13/86,5.8,Ms,6
+California,North Palm Springs,34,-116.6117,7/8/86,6.2,Mw,34
+California,Redlands,34.023,-117.245,10/2/85,4.8,ML,1
+California,Morgan Hill,37.306,-121.695,4/24/84,6.1,Mw,32
+California,Coalinga Aftershock 1,36.224,-120.232,9/9/83,5.3,Mw,2
+California,Coalinga Aftershock 2,36.229,-120.398,7/25/83,5.3,Mw,2
+California,Coalinga Aftershock 3,36.222,-120.407,7/22/83,5,Mw,2
+California,Coalinga Aftershock 4,36.241,-120.409,7/22/83,6,Mw,9
+California,Coalinga Aftershock 5,36.251,-120.4,7/9/83,5.4,Mw,9
+California,Coalinga Aftershock 6,36.256,-120.45,6/11/83,5.2,Mw,3
+California,Coalinga Aftershock 7,36.246,-120.299,5/9/83,5.3,Mw,20
+California,Coalinga,36.233,-120.31,5/2/83,6.5,Mw,48
+California,Mammoth Lakes 1,37.63,-118.94,1/7/83,5.4,ML,1
+California,Mammoth Lakes 2,37.63,-118.93,1/7/83,5.2,ML,1
+California,Anza 3,33.558,-116.667,6/15/82,4.8,ML,3
+California,Santa Barbara Island,33.67,-119.12,9/4/81,5.9,Ms,7
+California,Westmorland 2,33.098,-115.632,4/26/81,5.9,Mw,6
+California,Trinidad,40.503,-124.1,11/8/80,6.9,ML,1
+California,Mammoth Lakes 3,37.506,-118.826,5/27/80,6.2,ML,4
+California,Mammoth Lakes 4,37.543,-118.888,5/26/80,5.7,ML,2
+California,Mammoth Lakes 5,37.625,-118.859,5/25/80,5.7,ML,2
+California,Mammoth Lakes 6,37.561,-118.831,5/25/80,6.1,ML,2
+California,Mammoth Lakes 7,37.628,-118.927,5/25/80,6,ML,3
+California,Mammoth Lakes 8,37.609,-118.846,5/25/80,6.1,ML,3
+California,Anza 4,33.505,-116.514,2/25/80,5.3,Mw,5
+California,Livermore 1,37.737,-121.74,1/27/80,5.8,Ms,9
+California,Livermore 2,37.855,-121.816,1/24/80,5.5,Ms,8
+California,Imperial Valley Aftershock 1,33.022,-115.506,10/16/79,5,ML,1
+California,Imperial Valley Aftershock 2,32.7667,-115.4413,10/15/79,5,ML,17
+California,Imperial Valley,32.6435,-115.3088,10/15/79,6.5,Mw,35
+California,Coyote Lake,37.0845,-121.5054,8/6/79,5.7,Mw,9
+California,Santa Barbara 1,34.3987,-119.6813,8/13/78,5.8,Mw,7
+California,Coyote Dam,39.09,-123.34,3/26/78,4.5,,1
+California,Whittier,33.965,-117.886,1/1/76,4.2,ML,1
+California,Horse Canyon,33.523,-116.558,8/2/75,4.8,ML,7
+California,Oroville,39.439,-121.528,8/1/75,6,Mw,2
+California,Northern California (Humboldt County),40.57,-124.14,6/7/75,5.3,ML,5
+California,Imperial Valley 1,32.952,-115.49,1/23/75,4.8,ML,3
+California,Imperial Valley 2,32.708,-115.392,12/6/74,4.5,ML,1
+California,Hollister 1,36.9202,-121.4663,11/28/74,5.2,Mw,3
+California,Point Mugu,34.065,-119.035,2/21/73,5.3,Mw,2
+California,Central California 1,35.667,-118.404,3/8/71,4.1,ML,1
+California,San Fernando Aftershock 1,34.4,-118.395,2/9/71,4.1,ML,1
+California,San Fernando Aftershock 2,34.4,-118.395,2/9/71,4.2,ML,1
+California,San Fernando Aftershock 3,34.4,-118.395,2/9/71,4.4,ML,1
+California,San Fernando Aftershock 4,34.4,-118.395,2/9/71,3.9,ML,1
+California,San Fernando Aftershock 5,34.4,-118.395,2/9/71,4.5,ML,1
+California,San Fernando Aftershock 6,34.4,-118.395,2/9/71,4.5,ML,1
+California,San Fernando,34.44,-118.41,2/9/71,6.6,Mw,115
+California,Lytle Creek,34.2698,-117.54,9/12/70,5.3,Mw,20
+California,Borrego Mountain,33.19,-116.142,4/9/68,6.5,Mw,13
+California,Northern California 1,37.01,-121.78,12/18/67,5.3,ML,1
+California,Ferndale 3,40.5,-124.6,12/10/67,5.8,Ms,2
+California,Northern California 2,39.4,-120.1,9/12/66,6.3,ML,1
+California,Parkfield 3,36,-120.5,6/28/66,6.1,Mw,7
+California,Southern California 1,34.485,-118.517,7/16/65,4,ML,1
+California,Hollister 2,36.683,-121.3,4/9/61,5.6,ML,2
+California,Northern California 3,40.817,-124.883,6/6/60,5.7,ML,1
+California,Central California 2,36.783,-121.433,1/20/60,5.1,ML,1
+California,San Francisco,37.667,-122.483,3/22/57,5.3,Mw,5
+California,Port Hueneme,34.118,-119.052,3/18/57,4.7,ML,1
+California,Imperial County 1,32.922,-115.591,12/17/55,5.2,ML,1
+California,Imperial County 2,32.922,-115.591,12/17/55,4.3,ML,1
+California,San Jose,37.37,-121.78,9/5/55,5.8,ML,1
+California,Eureka 2,40.8167,-124.083,12/21/54,6.6,ML,2
+California,Wheeler Ridge,35,-119.017,1/12/54,5.6,ML,1
+California,Imperial Valley 1,32.783,-115.717,6/14/53,5.5,ML,1
+California,San Luis Obispo,35.733,-121.2,11/22/52,6,ML,1
+California,Northern California 4,40.2,-124.42,9/22/52,5.2,ML,1
+California,Kern County Aftershock 3,35.13,-118.77,7/21/52,5.5,ML,1
+California,Kern County Aftershock 2,35.23,-118.53,7/21/52,5.1,ML,1
+California,Kern County Aftershock 1,35,-119,7/21/52,6.4,ML,1
+California,Kern County,34.9767,-119.0333,7/21/52,7.5,Mw,5
+California,NW California 1,40.283,-124.8,10/8/51,6,ML,1
+California,Imperial Valley 2,32.983,-115.733,1/24/51,5.8,ML,1
+California,Northern California 5,37.02,-121.48,3/9/49,5.2,ML,1
+California,Borrego Valley,33.049,-116.088,10/21/42,6.6,Mw,1
+California,Torrance-Gardena,33.783,-118.25,11/14/41,4.8,ML,2
+California,Northern California 6,40.6,-124.6,10/3/41,6.4,ML,1
+California,Santa Barbara 2,34.367,-119.583,7/1/41,5.5,ML,1
+California,Northern California 7,40.7,-125.4,2/9/41,6.6,ML,1
+California,El Centro,32.7601,-115.4162,5/19/40,6.9,Mw,1
+California,NW California 2,40,-124,9/12/38,5.5,ML,1
+California,Imperial Valley 1,32.9,-115.217,6/6/38,4.8,ML,1
+California,Imperial Valley 2,32.904,-115.373,4/12/38,4.5,ML,1
+California,Humboldt Bay,40.4,-125.1,2/7/37,5.7,ML,1
+California,Eureka 3,41.22,-125.7,7/6/34,6.5,Ms,1
+California,Southern California 2,33.783,-118.133,10/2/33,5.4,ML,1
+California,Long Beach,33.617,-117.967,3/11/33,6.4,Mw,3
+Hawaii,Hawaii Island 1,19.328,-155.21,4/14/09,5.2,mb,14
+Hawaii,"Puu Oo Crater, Hawaii Island 1",19.346,-155.066,8/14/07,5.4,Mw,18
+Hawaii,"Puako, Hawaii Island 1",19.959,-155.983,12/3/06,4.6,Md,10
+Hawaii,"Puako, Hawaii Island 2",19.89,-155.979,11/23/06,5,Md,13
+Hawaii,Mahukona,20.129,-155.983,10/15/06,6,Mw,18
+Hawaii,Kiholo Bay,19.878,-155.935,10/15/06,6.7,Mw,23
+Hawaii,"Volcano, Hawaii Island",19.336,-155.212,2/17/06,4.6,Md,6
+Hawaii,"Naalehu, Hawaii Island",19.053,-155.43,1/19/06,4.7,Md,5
+Hawaii,Kaena Point,19.33,-155.11,11/30/05,4.5,Md,4
+Hawaii,South of Hawaii Island,18.809,-155.446,7/17/05,5.2,Md,14
+Hawaii,NE of Hawaii Island,20.436,-155.138,7/15/05,5.3,Mw,8
+Hawaii,"Puu Oo Crater, Hawaii Island 2",19.339,-155.118,10/12/04,4.5,Md,2
+Hawaii,Volcano,19.325,-155.207,8/27/03,4.6,Mw,10
+Hawaii,Hawaii Island 2,19.339,-155.206,4/2/00,4.9,mb,5
+Illinois,Bellmont,38.452,-87.886,4/18/08,5.4,Mw,6
+Indiana,Evansville,38.069,-87.68,6/18/02,5,Mn,1
+Montana,Dillon,45.411,-112.596,7/26/05,5.6,Mw,9
+Montana,Helena Aftershock,46.6,-112,11/28/35,5,ML,1
+Montana,Helena,46.61,-111.96,10/31/35,6,Ms,1
+New Hampshire,New Hampshire,43.51,-71.62,1/19/82,4.5,,6
+New Mexico,New Mexico,36.947,-104.833,8/10/05,5,Mw,1
+Oklahoma,Oklahoma Earthquake,35.532,-96.765,11/6/11,5.6,Mw,6
+Oregon,Scotts Mill,45.03,-122.61,3/25/93,5.7,ML,1
+Puerto Rico,Puerto Rico,18.4,-67.07,5/16/10,5.8,Mw,2
+Puerto Rico,Virgin Islands,19.161,-64.833,10/11/08,6.1,Mw,12
+Puerto Rico,Lesser Antilles,19.35,-63.787,3/2/06,5.5,Mw,9
+Virginia,Mineral,37.936,-77.933,8/23/11,5.8,Mw,15
+Washington,Satsop,47.166,-123.506,6/10/01,5,ML,8
+Washington,Nisqually,47.167,-122.733,2/28/01,6.8,Mw,95
+Washington,Satsop,47.08,-123.46,7/3/99,5.8,Mw,5
+Washington,Duval,47.76,-121.88,5/3/96,5.5,ML,1
+Washington,Puget Sound,47.4,-122.3,4/29/65,6.7,Mw,2
+Washington,Western Washington,47.17,-122.62,4/13/49,6.9,,2
+Nevada,"Wells, NV",41.077,-114.752,2/21/08,6,Mw,1
