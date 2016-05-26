@@ -45,7 +45,7 @@
             font-size: 1em;
             color: #b5b5b7;
         }
-    
+        
     </style>
 </head>
 <body>
@@ -59,7 +59,6 @@
         <p>This Map shows bird observations of Kentucky Imperiled/Vulnerable species from 2014 eBird observation records. The eBird observation records were obtained in May 2015 from Cornell's eBird website. Kentucky ranking status were obtained from the Kentucky State Nature Preserve Commission's published county records (http://naturepreserves.ky.gov/pubs/Pages/cntyreport.aspx).</p>
         <p>Source: eBird Basic Dataset. Version: EBD_relMay-2015. Cornell Lab of Ornithology, Ithaca, New York. May 2015. CRS: WGS 84. Nature Preserve: http://naturepreserves.ky.gov/pubs/Pages/cntyreport.aspx.</p>
         <p>Map authored by Maria Renee Horn.</p>
-        
     </footer>
     
     <script src="http://libs.cartocdn.com/cartodb.js/v3/3.15/cartodb.js"></script>
@@ -123,7 +122,7 @@
             }
     
     </script>
-
+    
     <script>
      
         var map = new L.Map("map", {
@@ -137,7 +136,6 @@
                         'line-opacity: 0.1;' +
                         '}'
 
-        
         var cartoCSS =  '#number_of_birds_in_counties{'+
                         'polygon-fill: #b5b5b7;'+
                         'polygon-opacity: 0.5;'+
@@ -155,10 +153,9 @@
                     cartocss: $("#counties-styles").text(),
                     },{sql: "SELECT * FROM ebird_species_rank_in_ky",
                     cartocss: $("#rank-styles").text(),
-                    interactivity: 'cartodb_id'
                     }]
         }
-
+        
         cartodb.createLayer(map, sourceObject).addTo(map).done(function(layer) {
                                                                   
         var legend = new cdb.geo.ui.Legend({
@@ -197,7 +194,7 @@
         });
             
         $('#map').append(stackedLegend.render().el); 
-            
+           
 //            var birds = layer.getSubLayer(0);
 //            birds.setInteraction(true)
 //            birds.on('featureOver', function(e, pos, pixel, data) {
@@ -216,43 +213,45 @@
 //                console.log("RANK: " + data.name);
 //            });
 //            rank.setInteraction(true);   
+            
         });
         
-        $.getJSON('https://macaraya.cartodb.com/api/v2/sql?format=GeoJSON&q=SELECT * FROM number_of_birds_in_counties',
-                  
-            function(data) { L.geoJson(data, {
-                
-               style: function(feature) {
-                    return {
-                        color: '#b5b5b7',
-                        weight: 0.3                        
-                    }
-                },
-                
-                onEachFeature: function(feature, layer) {
-                    
-                    layer.bindPopup('<center>' + feature.properties.name + ' County' + '<br><center> Bird Observations: ' +
-                                   feature.properties.pntcnt),
-                        
-                    layer.on('mouseover', function(e) {
-                        e.target.setStyle({
-                            stroke: true,
-                            color: 'yellow',
-                            weight: 2,
-                        });
-                    });
-                    
-                    layer.on('mouseout', function(e) {
-                        e.target.setStyle({
-                            stroke: true,
-                            color: '#bcccd8',
-                            weight: 0.3,
-                        });
-                    });
-                }
-                    
-            }).addTo(map).bringToFront();
-        });
+//        $.getJSON('https://macaraya.cartodb.com/api/v2/sql?format=GeoJSON&q=SELECT * FROM number_of_birds_in_counties',
+//                  
+//            function(data) { L.geoJson(data, {
+//                
+//                style: function(feature) {
+//                    return {
+//                        color: '#b5b5b7',
+//                        weight: 0.3                        
+//                    }
+//                },
+//                
+//                onEachFeature: function(feature, layer) {
+////                    console.log(feature, layer);
+//                    
+//                    layer.bindPopup('<center>' + feature.properties.name + ' County' + '<br><center> Bird Observations: ' +
+//                                   feature.properties.pntcnt),
+//                        
+//                    layer.on('mouseover', function(e) {
+//                        e.target.setStyle({
+//                            stroke: true,
+//                            color: 'yellow',
+//                            weight: 2,
+//                        });
+//                    });
+//                    
+//                    layer.on('mouseout', function(e) {
+//                        e.target.setStyle({
+//                            stroke: true,
+//                            color: '#bcccd8',
+//                            weight: 0.3,
+//                        });
+//                    });
+//                }
+//                    
+//            }).addTo(map).bringToFront();
+//        });
       
     </script>
 </body>
