@@ -1,0 +1,188 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Map 673 D3 Choropleth Template</title>
+
+    <link href='https://fonts.googleapis.com/css?family=Poiret+One' rel='stylesheet' type='text/css'>
+    <style>
+        body {
+            padding: 0;
+            margin: 0;
+            background: black; 
+            font-family: 'Poiret One', cursive;
+        }
+        h1 {
+            position: absolute;
+            padding: 6px 10%;
+            right: 14%;
+            top: 15px;
+            font-size: 3.2em;
+            font-weight: 100;
+            color: #9E8D92;
+        }
+        h2 {
+            position: absolute;
+            padding: 6px 10%;
+            left: 33%;
+            bottom: 225px;
+            font-size: 2em;
+            font-weight: 100;
+            color: #9E8D92;
+        }
+        h3 {
+            position: absolute;
+            padding: 6px 10%;
+            left: 33%;
+            bottom: 200px;
+            font-size: 1.2em;
+            font-weight: 100;
+            color: #9E8D92;
+        }
+        h4 {
+            position: absolute;
+            padding: 6px 10%;
+            right: 26%;
+            top: 70px;
+            font-size: 2.2em;
+            font-weight: 100;
+            color: #9E8D92;
+        }
+        #map {
+            width: 800px;
+            height: 600px;
+            margin: 200px auto;
+            border: 1px solid #34282C;
+            background: #34282C;
+        }
+        footer {
+            position: absolute;
+            padding: 6px 10%;
+            width: 80%;
+            height: 100%;
+            background: #34282C;
+        }
+        .tons {
+            opacity: 1;
+            stroke: #583759;            
+        }
+        .hover {
+            fill: black;
+        }
+        .land {
+            fill: black;
+        }
+        .islands {
+            fill: black;
+        }
+        p {
+            font-size: 0.9em;
+            font-weight: 100;
+            color:  #9E8D92;
+            text-align: right;
+        }
+        
+    </style>
+</head>
+<body>
+    
+    <div id="map"></div>
+
+    <footer>
+        <p>Data from the United States Environmental Protection Agency (EPA).</p>
+        <p>This data set does not reflect total U.S. GHG emissions. Data report to EPA as of 08/16/2015.</p>
+        <p>Map Authored by Maria Renee Horn. CRS: USA Contiguous Albers Equal Area Conic, EPSG: 102003.</p></p>       
+    </footer>
+    
+    <h1>2014 Greenhouse Gas Emissions</h1>
+    <h2></h2>
+    <h3></h3>
+    <h4>from Large Facilities</h4>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/queue-async/1.0.7/queue.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/1.6.19/topojson.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/simple-statistics/0.9.0/simple_statistics.min.js"></script>
+    
+<script>
+      
+    var width = 800, height = 600;
+    
+    var svg = d3.select("#map")
+            .append("svg")
+            .attr("width", width)
+            .attr("height", height);
+    
+    var projection = d3.geo.albers()
+            .scale(1000)
+            .translate([width/2, height/2]);
+    
+    var geoPath = d3.geo.path()
+            .projection(projection);
+    
+    queue()
+        .defer(d3.json, "https://macaraya.cartodb.com/api/v2/sql?format=GeoJSON&q=SELECT ST_Transform(the_geom, 102003) AS                  the_geom_webmercator, cartodb_id, the_geom, ghg_normalized, statefp, name FROM cb_2014_us_state_20m_merge")
+        .defer(d3.json, 'na_land_clipped.json')
+        .defer(d3.json, 'ne_islands.json')
+        .await(makeMap);
+    
+    function makeMap(error, counties, na, ne) { 
+        
+        console.log(counties);
+        
+        var breaks = ss.jenks(counties.features.map(function(d) {
+            return d.properties.ghg_normalized;
+        }), 5);
+        
+        breaks.shift();
+        breaks.pop();
+        console.log(breaks);
+        
+        var colors = ["#ece0f0","#ccb7d3","#ac8fb6","#8c6699","#6c3e7c"];
+        
+        var jenks = d3.scale.threshold()    
+            .domain(breaks)
+            .range(colors);
+ 
+        svg.append("g")
+            .selectAll("path")
+            .data(na.features)
+            .enter()
+            .append("path")
+            .attr("d", geoPath)
+            .attr("class", "land")
+        
+        svg.append("g")
+            .selectAll("path")
+            .data(ne.features)
+            .enter()
+            .append("path")
+            .attr("d", geoPath)
+            .attr("class", "islands")
+    
+        svg.append("g")
+            .selectAll("path")
+            .data(counties.features)
+            .enter()
+            .append("path")
+            .attr("d", geoPath)
+            .attr("class", "tons")
+            .attr("fill", function(d) {
+                return jenks(d.properties.ghg_normalized);
+            })
+            .style("stroke-dasharray", ("10,3"))
+            .style("stroke", "#614051")
+            .on("mouseover", function(d) {
+                d3.select("h2").text('State: '+d.properties.name)
+                d3.select("h3").text('Emissions per KM2: '+d.properties.ghg_normalized+' CO2')
+                d3.select(this).attr('class', 'tons hover');
+            })
+            .on("mouseout", function(d) {
+                d3.select("h2").text('');
+                d3.select("h3").text('')
+                d3.select(this).attr('class', 'tons');
+            }); 
+    }
+    
+</script>
+</body>
+</html>
