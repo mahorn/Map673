@@ -14,29 +14,30 @@
         h1 {
             position: absolute;
             padding: 6px 10%;
-            right: 14%;
-            top: 15px;
+            right: 17%;
+            top: 0;
             font-size: 3.2em;
             font-weight: 100;
-            color: #9E8D92;
+            text-align: center;
+            color: #d4dde1;
         }
         h2 {
             position: absolute;
             padding: 6px 10%;
-            left: 33%;
-            bottom: 225px;
+            left: 34%;
+            bottom: 21%;
             font-size: 2em;
             font-weight: 100;
-            color: #9E8D92;
+            color: #d4dde1;
         }
         h3 {
             position: absolute;
             padding: 6px 10%;
-            left: 33%;
-            bottom: 200px;
+            left: 32%;
+            bottom: 18%;
             font-size: 1.2em;
             font-weight: 100;
-            color: #9E8D92;
+            color: #d4dde1;
         }
         h4 {
             position: absolute;
@@ -45,31 +46,33 @@
             top: 70px;
             font-size: 2.2em;
             font-weight: 100;
-            color: #9E8D92;
+            color: #d4dde1;
         }
         #map {
             width: 800px;
             height: 600px;
             margin: 200px auto;
-            border: 1px solid #34282C;
-            background: #34282C;
+            border: 1px solid #4c3f54;
+            background: black;
         }
         footer {
             position: absolute;
             padding: 6px 10%;
             width: 80%;
             height: 100%;
-            background: #34282C;
+            background: #4c3f54;
         }
         .tons {
-            opacity: 1;
-            stroke: #583759;            
+            fill: "#4c3f54";
+            opacity: 1;           
         }
         .hover {
-            fill: black;
+            fill: #4c3f54;
         }
         .land {
-            fill: black;
+            fill: #1e1f26;
+            stroke: #4c3f54;
+            opacity: 0.7;
         }
         .islands {
             fill: black;
@@ -77,8 +80,9 @@
         p {
             font-size: 0.9em;
             font-weight: 100;
-            color:  #9E8D92;
+            color:  #d4dde1;
             text-align: right;
+            line-height: 100%;
         }
         
     </style>
@@ -90,13 +94,14 @@
     <footer>
         <p>Data from the United States Environmental Protection Agency (EPA).</p>
         <p>This data set does not reflect total U.S. GHG emissions. Data report to EPA as of 08/16/2015.</p>
-        <p>Map Authored by Maria Renee Horn. CRS: USA Contiguous Albers Equal Area Conic, EPSG: 102003.</p></p>       
+        <p>Map Projection: d3.geo.albers.</p>
+        <p>Map Authored by Maria Renee Horn.</p> 
     </footer>
     
-    <h1>2014 Greenhouse Gas Emissions</h1>
+    <h1>2014 Greenhouse Gas Emissions<br>from Large Facilities</h1>
     <h2></h2>
     <h3></h3>
-    <h4>from Large Facilities</h4>
+<!--    <h4>from Large Facilities</h4>-->
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/queue-async/1.0.7/queue.min.js"></script>
@@ -137,7 +142,7 @@
         breaks.pop();
         console.log(breaks);
         
-        var colors = ["#ece0f0","#ccb7d3","#ac8fb6","#8c6699","#6c3e7c"];
+        var colors = ["#d0e1f9","#a3b0c4","#77808f","#4a4f5a","#1e1f26"];
         
         var jenks = d3.scale.threshold()    
             .domain(breaks)
@@ -170,11 +175,11 @@
                 return jenks(d.properties.ghg_normalized);
             })
             .style("stroke-dasharray", ("10,3"))
-            .style("stroke", "#614051")
+            .style("stroke", "#4c3f54")
             .on("mouseover", function(d) {
                 d3.select("h2").text('State: '+d.properties.name)
                 d3.select("h3").text('Emissions per KM2: '+d.properties.ghg_normalized+' CO2')
-                d3.select(this).attr('class', 'tons hover');
+                d3.select(this).attr('class', 'hover');
             })
             .on("mouseout", function(d) {
                 d3.select("h2").text('');
