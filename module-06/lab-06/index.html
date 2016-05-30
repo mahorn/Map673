@@ -13,7 +13,7 @@
             height: 100%;
             padding: 0;
             margin: 0;
-            background: #3d3d3d;
+            background: #32384d;
             font-weight: bold;
             font-family: 'Poiret One', cursive;
         }
@@ -45,7 +45,7 @@
             font-size: 1em;
             color: #b5b5b7;
         }
-    
+        
     </style>
 </head>
 <body>
@@ -67,32 +67,32 @@
     <script type="cartocss/html" id="counties-styles">
 
             #number_of_birds_in_counties{
-                polygon-fill: #b5b5b7;
+                polygon-fill: #32384d;
                 polygon-opacity: 0.5;
-                line-color: #bcccd8;
+                line-color: #C4DFE6;
                 line-width: 0.3;
                 line-opacity: 1;
             }
             #number_of_birds_in_counties [ pntcnt <= 628] {
-            polygon-fill: #98a50f;
+            polygon-fill:#04202c;
             }
             #number_of_birds_in_counties [ pntcnt <= 335] {
-            polygon-fill: #e45641;
+            polygon-fill: #243d46;
             }
             #number_of_birds_in_counties [ pntcnt <= 197] {
-            polygon-fill: #FFA300;
+            polygon-fill: #455b60;
             }
             #number_of_birds_in_counties [ pntcnt <= 43] {
-            polygon-fill: #f2edd8;
+            polygon-fill: #66787a;
             }
             #number_of_birds_in_counties [ pntcnt <= 42] {
-            polygon-fill: #96c0ce;
+            polygon-fill:#879694;
             }
             #number_of_birds_in_counties [ pntcnt <= 8] {
-            polygon-fill: #74828f;
+            polygon-fill: #a8b3ae;
             }
             #number_of_birds_in_counties [ pntcnt <= 4] {
-            polygon-fill: #525564;
+            polygon-fill: #c9d1c8;
             }
             
     </script>
@@ -110,16 +110,16 @@
                 marker-allow-overlap: true;
             }
             #ebird_species_rank_in_ky[ky_status="Critically Imperiled"] {
-            marker-fill: #00cffa;
+            marker-fill: #003B46;
             }
             #ebird_species_rank_in_ky[ky_status="Historic"] {
-            marker-fill: #ff0038;
+            marker-fill: #07575B;
             }
             #ebird_species_rank_in_ky[ky_status="Imperiled"] {
-            marker-fill: #ffce38;
+            marker-fill: #66A5AD;
             }
             #ebird_species_rank_in_ky[ky_status="Vulnerable"] {
-            marker-fill: #020509;
+            marker-fill: #C4DFE6;
             }
     
     </script>
@@ -159,22 +159,23 @@
                     }]
         }
 
-        cartodb.createLayer(map, sourceObject).addTo(map).done(function(layer) {
-                                                                  
+        cartodb.createLayer(map, sourceObject).addTo(map).done(function(layer) {                                                     
         var legend = new cdb.geo.ui.Legend({
-            type: "custom",
+            type: "choropleth",
             show_title: true,
             title: "Observations per County",
             background: "#96c0ce",
             padding: "#96c0ce",
             data: [
-                { name: "0 - 4", value: "#525564" },
-                { name: "5 - 8", value: "#74828f" },
-                { name: "9 - 42", value: "#96c0ce" },
-                { name: "43", value: "#f2edd8" },
-                { name: "44 - 196", value: "#FFA300" },
-                { name: "197 - 334", value: "#e45641" },
-                { name: "335 - 628", value: "#98a50f" }
+                { value: "0" },
+                { value: "628" },
+                { name: "0 - 4", value: "#c9d1c8" },
+                { name: "5 - 8", value: "#a8b3ae" },
+                { name: "9 - 42", value: "#879694" },
+                { name: "43", value: "#66787a" },
+                { name: "44 - 196", value: "#455b60" },
+                { name: "197 - 334", value: "#243d46" },
+                { name: "335 - 628", value: "#04202c" }
                 ]
         });
             
@@ -185,15 +186,15 @@
             background: "#96c0ce",
             padding: "#96c0ce",
             data: [
-                { name: "Critically Imperiled", value: "#00cffa" },
-                { name: "Historic", value: "#ff0038" },
-                { name: "Imperiled", value: "#ffce38" },
-                { name: "Vulnerable", value: "#020509" },
+                { name: "Critically Imperiled", value: "#003B46" },
+                { name: "Historic", value: "#07575B" },
+                { name: "Imperiled", value: "#66A5AD" },
+                { name: "Vulnerable", value: "#C4DFE6" },
                 ]
         });
             
         var stackedLegend = new cdb.geo.ui.StackedLegend({
-            legends: [legend, rank]
+            legends: [rank, legend]
         });
             
         $('#map').append(stackedLegend.render().el); 
@@ -216,9 +217,9 @@
 //                console.log("RANK: " + data.name);
 //            });
 //            rank.setInteraction(true);   
-        });
-        
-        $.getJSON('https://macaraya.cartodb.com/api/v2/sql?format=GeoJSON&q=SELECT * FROM number_of_birds_in_counties',
+       });
+          
+      $.getJSON('https://macaraya.cartodb.com/api/v2/sql?format=GeoJSON&q=SELECT * FROM number_of_birds_in_counties',
                   
             function(data) { L.geoJson(data, {
                 
@@ -237,7 +238,7 @@
                     layer.on('mouseover', function(e) {
                         e.target.setStyle({
                             stroke: true,
-                            color: 'yellow',
+                            color: 'transparent',
                             weight: 2,
                         });
                     });
@@ -245,15 +246,15 @@
                     layer.on('mouseout', function(e) {
                         e.target.setStyle({
                             stroke: true,
-                            color: '#bcccd8',
+                            color: '#A9A8A6',
                             weight: 0.3,
                         });
                     });
-                }
-                    
+                } 
+          
             }).addTo(map).bringToFront();
         });
-      
+        
     </script>
 </body>
 </html>

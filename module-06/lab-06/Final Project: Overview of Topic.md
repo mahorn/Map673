@@ -1,4 +1,4 @@
-# Kentucky Rare Plant Database 
+# Distribution of Rare Plants in Kentucky
 
 **Persona/Scenario**
 
@@ -15,28 +15,62 @@ The Kentucky State Nature Preserves Commission will provide all the data necessa
 **2. What do we want to get out of this product?**
 
     1. Showcase the rare plants in Kentucky and to create a standard for the Natural Heritage programs in North America.
-	2. Display the Rare Plant Database and their distribution by county.
+	2. Display the Rare Plant Database and their distribution by species.
     3. Change the static map format to an interactive map format.
     
 **3. What do our users want to get out of this product?**
 
-    1. Knowledge of extant/historic distribution of rare plants by county.
-    2. Visualize with a better design distribution of plants by county.
+    1. Knowledge of extant/historic distribution of rare plants by species.
+    2. Visualize with a better design distribution of plants.
 	3. Provide stakeholders and citizens information with potential as a planning/education/conservation tool.
 
 **4. Content Requirements:**
 	
-	1. Data will be represented on a basemap creating a choropleth map.
-    2. Data will be encoded as a polygon colored or shaded according to species occurences, observed or historic/extirpated, represented for each county.
-	3. A legend will inform user of specific information regarding the selected species for the choropleth map (common and scientific name, family, etc).  
+	1. Data will be represented on a basemap creating a dot map.
+    2. Data will be encoded as a polygon colored according to species occurences as observed and/or historic/extirpated.
+	3. A legend will inform user of specific information regarding the selected species (name, family, ocurrence, etc).  
 	4. An info window might also be available with more information regarding species habitat, description, phenology, etc.
 	
 **5. Functional Requirements:**
 
 	1. Map will load data dynamically from a CSV and JSON file.
-	2. One data layer will be created with the distribution of species observed and historic/extirpated by county.
-	3. Data layers will be drawn to map.
+	2. One data layer will be created with the distribution of a selected species that either is observed and/or historic/extirpated.
+	3. Data layer will be drawn to map.
 	4. Additional information will be attached to each county polygon on a click or hover.
     5. Upon a click on a protected area polygon the map will automatically zoom in at least one level.
     6. A search box will be added to the map.
-    7. A toggle layer option will be added to the map.?
+    
+**Revision: Overview of Topic** 
+   
+   Rich Donohue
+   
+    I don't have a good sense of the data yet from your description. Are the data simply whether or not a species of plant exists within a county? Like presented here? http://eppcapp.ky.gov/nprareplants/search.aspx?county=Calloway
+   
+   Maria 
+   
+    Yes, the csv file contains a code for each species.  Each species can be distributed in one county or several counties. 
+   
+   Rich Donohue
+  
+    Are all data aggregated to the county level, or are there other polygons?
+    
+   Maria
+    
+    The data is aggregated to the county level. There are no other polygons. Initally I thought, we could show the exact point of distribution, but the plants can be target of trafficking and coordinates aren't available. 
+    
+   Rich Donohue
+    
+    Would the choropleth then be darker shades for more rare species within each county?
+    
+   Maria
+    
+    I wanted to make a choropleth just as a base or background for the map because I feel that my data is very simple with only one layer, but that isn't very helpful.  
+    
+   Rich Donohue
+    
+    Would your map allow the user to select the specific plant and then show which counties it exists in, like this? I think this is potentially more useful than the choropleth of total counts.
+    
+   Maria
+   
+    Yes, I agree.  That was my intention, but I didn't express my ideas well.  Nevertheless, I wanted to have a dropdown with the option of searching data by county. With that said, I am not sure how I am going to re-organized the data. I have the csv added to this file lab 06 for your review.  
+   
