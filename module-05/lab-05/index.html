@@ -111,10 +111,10 @@
         #legend {
             position: absolute;
             right: 20px;
-            bottom: 0;
+            bottom: 30px;
         }
         #legend h3 {
-            margin-top: 0;
+            margin-top: 20px;
         }
         #info {
             padding: 8px 15px;
@@ -122,7 +122,7 @@
             border-radius: 3px;
             position: absolute;
             font-size: 1em;
-            max-width: 200px; 
+            max-width: 245px; 
             display: none;
         }
         .info p {
@@ -317,14 +317,15 @@
         }
         
         function infoWindow(private, federal, currentSubject) {
+            
             var info = $('#info');
                 federal.on('mouseover', function(e) {
                     info.show();
                 
             var props = e.layer.feature.properties;
                 $('#info p:first-child span').text(props.COUNTY);
-                $(".private span:first-child").text('(subject' + currentSubject +')');
-                $(".federal span:first-child").text('(subject' + currentSubject +')');
+                $(".private span:first-child").text('( Subject ' + currentSubject + ' ) ');
+                $(".federal span:first-child").text('( Subject ' + currentSubject + ' ) ');
                 
                 $(".private span:last-child").text(props['P'+String(currentSubject)].toLocaleString()+' textbooks');
                 $(".federal span:last-child").text(props['F'+String(currentSubject)].toLocaleString()+' textbooks');
