@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset=utf-8 />
+    <title>A simple map</title>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    
+    <script src='https://api.mapbox.com/mapbox.js/v2.2.4/mapbox.js'></script>
+    <script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-omnivore/v0.2.0/leaflet-omnivore.min.js'></script>
+    <script src='https://code.jquery.com/jquery-1.12.0.min.js'></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/simple-statistics/1.0.0/simple_statistics.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    
+    <link href='https://api.mapbox.com/mapbox.js/v2.2.4/mapbox.css' rel='stylesheet' />
+    <link href='https://fonts.googleapis.com/css?family=Handlee' rel='stylesheet' type='text/css'>
+    
+    <style>
+        body {
+            margin:0;
+            padding:0;
+            font-family: 'Handlee', cursive;
+            color: #488a99;
+            font-weight: 200;
+        }
+        #map {
+            position:absolute;
+            top:0;
+            bottom:0;
+            right:0;
+            width: 72%;
+        }
+        #side-panel {
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 28%;
+            background: #34282c;
+            border-right: 0.8px solid #488a99;
+            border-left: 0.8px solid #488a99;
+            border-bottom: 0.8px solid #488a99;
+            overflow-y: scroll;
+        }
+        h1 {
+            padding: 18px 22px 2px 25px;
+            margin: 0;
+            background: #488a99;
+            color: #dbae58;
+            font-weight: 500;
+            font-size: 1.8em;
+            text-align: right;
+        }
+        h2 {
+            margin: 0;
+            padding: 8px 25px 8px 15px;
+            background: #488a99;
+            color: #b4b4b4;
+            font-weight: 500;
+            font-size: 1.2em;
+            text-align: right;
+        }
+        h3 {
+            color: #dbae58;
+            font-weight: 500;
+            font-size: 1.2em;
+            text-align: center;
+        }
+        #side-panel p {
+            margin: 12px 0 8px; 
+            padding: 0 25px 0 15px;
+            color: #b4b4b4;
+            text-align: right;
+            font-size: 1em; 
+        }
+        #side-panel p:after {
+            content: '';
+            display: block;
+            clear: both;
+        }
+        #side-panel img {
+           
+            margin: 5px 15px 15px 15px;
+            width: 90%;
+        }   
+        p {
+            font-size: 1em;
+            color: #488a99;
+            font-family: 'Handlee', cursive;
+        }
+        #subject-button {
+            position: absolute;
+            top: 100px;
+            right: 80px;
+            background: rgba(25,25,25,0.8);
+            border-radius: 5px;
+        }
+        #subject {
+            position: absolute;
+            padding: 8px 15px;
+            background: rgba(25,25,25,0.6);
+            right: 20px;
+            top: 20px;
+            color: #488a99;
+            font-size: 27px;  
+        }
+        #subject span {
+            font-size: 1.3em;
+            font-weight: 500;
+            color: #dbae58;
+        }
+        #legend {
+            position: absolute;
+            right: 20px;
+            bottom: 30px;
+        }
+        #legend h3 {
+            margin-top: 20px;
+        }
+        #info {
+            padding: 8px 15px;
+            background: rgba(25,25,25,0.6);
+            border-radius: 3px;
+            position: absolute;
+            font-size: 1em;
+            max-width: 245px; 
+            display: none;
+        }
+        .info p {
+            margin: 3px 0 4px;
+            color:#488a99;
+        }
+        .private {
+            color:#dbae58;
+        }
+        .federal {
+            color:#ffffff;
+        }
+        #info span:last-child {
+            font-size: 1.3em;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+    
+    <div id='map'></div>
+    
+    <div id='side-panel'>
+    <h1>Textbook Provision in Kenya's Private and Public Schools</h1>
+    <h2>Number of textbooks per school subject</h2>
+    <p>Education in developing countries is often hindered by large class sizes and low teaching quality. Over the past decade many developing countries have expanded primary school access, nevertheless the increase quantity has not always been matched with improved quality. There is a widespread belief that the provision of textbooks can substantially improve educational outcomes in developing countries, but there is little empirical evidence as to whether providing textbooks alone can overcome the effects of other systemic problems such as high teacher-student ratios and frequent absenteeism (Glewwe, P., Michael K., and Sylvie M. 2009. "Many Children Left Behind? Textbooks and Test Scores in Kenya." American Economic Journal: Applied Economics 1(1): 112-35).</p>
+    <p><img src="images/legend.png" alt="legend" /></p>
+    <h2>About this map</h2>
+    <p>This map is comparing the number of textbooks between private and public schools in Kenya. The school subjects chosen included: English, Kiswahili, Math, Science and Social Studies. Kenyan students are extremely heterogeneous in their family background, preparation for schooling, and economic circumstances. Furthermore, 50 percent of families live below the poverty line, and high teacher absenteeism is reported in many schools. Primary school is provided at a low cost, with some expenses, such as textbooks, paid by parents (Glewwe, P., Michael K., and Sylvie M. 2009. "Many Children Left Behind? Textbooks and Test Scores in Kenya." American Economic Journal: Applied Economics 1(1): 112-35).</p>
+    <p>Additionally, sharing textbooks is common in Kenya, and two or three students typically share a workspace. Nevertheless, the cost of textbooks is a key barrier that prevents children from having access to the learning materials they need (Global Education Monitoring Report, Every Child Should Have a Textbook, 2016).</p>
+    <h2>About the data</h2>
+    <p>This data was obtained from the Kenyan Open Data Portal and Open Africa by Code for Africa.</p>
+    <p>Map by Maria Renee Horn.</p>
+    </div>
+    
+    <div id="subject-button">
+        <input type="radio" name="textbook" value="English" checked>English<br>
+        <input type="radio" name="textbook" value="Kiswahili" >Kiswahili<br>
+        <input type="radio" name="textbook" value="Math" >Math<br>
+        <input type="radio" name="textbook" value="Science">Science<br>
+        <input type="radio" name="textbook" value="Social Studies">Social Studies<br>
+    </div>
+    
+    <div id="subject">Subject: <span>English</span></div>
+    
+    <div id="legend">
+        <svg class="legend" width="300" height="300"></svg>
+        <h3>Number of Textbooks per Subject</h3>
+    </div>
+    
+    <div id="info">
+        <p>County: <span></span></p>
+        <p class='private'>Private school: <span></span><span></span></p>
+        <p class='federal'>Public school: <span></span><span></span></p>
+    </div>
+
+    <script>
+        
+        L.mapbox.accessToken = 'pk.eyJ1Ijoicmdkb25vaHVlIiwiYSI6Im5Ua3F4UzgifQ.PClcVzU5OUj17kuxqsY_Dg';
+
+        var map = L.mapbox.map('map', 'mapbox.dark', {
+            center: [-.23, 37.8],
+            zoom: 7,
+            minZoom: 6,
+            maxZoom: 9,
+            maxBounds: L.latLngBounds([-6.22, 27.72],[5.76, 47.83])
+        });
+        
+        var counties = $.getJSON("Kenya_county.json", function(data) {
+            L.geoJson(data, {
+                style: function(feature) {
+                    return {
+                        color:'#b4b4b4',
+                        weight: 0.7,
+                        fillOpacity: 0.5,
+                        fillColor: '#34282c'
+                    };
+                },    
+                onEachFeature: function(feature,layer) {
+                    layer.on('mouseover', function(e) {
+                        e.target.setStyle({
+                            color: '#488a99',
+                            fillColor: '#488a99'
+                            });
+                        });
+                    layer.on('mouseout', function(e) {
+                        e.target.setStyle({
+                            color: '#b4b4b4',
+                            fillColor: '#34282c'
+                            });
+                        });
+                }
+                
+            }).addTo(map).bringToBack();
+        });
+        
+        omnivore.csv('books_subject.csv')
+            .on('ready', function(e) {
+                drawMap(e.target.toGeoJSON());
+            }).on('error', function(e) {
+                console.log(e)
+        });
+        
+        function drawMap(booksData) {
+            var private = L.geoJson(booksData, {
+                pointToLayer: function(feature, latlng) {
+                    return L.circleMarker(latlng, {
+                        color: '#dbae58',
+                        opacity: 1,
+                        weight: 1,
+                        fillOpacity: 0.1
+                    });
+                }
+                
+            }).addTo(map);
+            
+            var federal = L.geoJson(booksData, {
+                  pointToLayer: function(feature, latlng) {
+                    return L.circleMarker(latlng, {
+                        color: '#ffffff',
+                        opacity: 0.7,
+                        weight: 0.7,
+                        fillOpacity: 0.1
+                    });
+                }
+                
+            }).addTo(map);
+            
+            updateSymbols(private, federal, "English");
+            subjectButton(private, federal);
+        
+        }
+        
+        function updateSymbols(private, federal, currentSubject) {
+            var allRadii = [],
+                radius;
+            
+            private.eachLayer(function(layer) {
+                radius = calcRadius(layer.feature.properties["P"+currentSubject]);
+                layer.setRadius(radius)
+                allRadii.push(radius);  
+            });
+           
+             federal.eachLayer(function(layer) {
+                radius = calcRadius(layer.feature.properties["F"+currentSubject]);
+                layer.setRadius(radius)
+                allRadii.push(radius);
+            });
+            
+            drawLegend(allRadii);
+            infoWindow(private, federal, currentSubject);
+        }
+        
+        function calcRadius(val) {
+            var radius = Math.sqrt(val/Math.PI);
+            return radius * .2;
+        }
+        
+        function subjectButton (private, federal) {
+            $('#subject-button input')
+                .on('change', function(){
+                var currentSubject = $(this).val();
+                    updateSymbols(private, federal, $(this).val());
+                $('#subject span').html(currentSubject)
+                });
+        }
+        
+        function drawLegend(allRadii) {
+            var legend = $('.legend')
+            var circles = {
+                max: ss.max(allRadii),
+                median: ss.median(allRadii)
+//                ,
+//                min: ss.min(allRadii)
+            }
+            
+            var svgCircle = '';
+            var reverseCalc = function(radius) {   
+                return Math.round(Math.pow(radius/.2, 2) * Math.PI)
+            }
+            
+            for(var circle in circles) {
+                var radiusValue = circles[circle];
+                var actualValue = reverseCalc(radiusValue);
+              
+                svgCircle += '<circle cx="140" cy="' + (radiusValue - 300) * -1 + '" r="' + radiusValue + 
+                    '"stroke="#488a99" stroke-width="1" fill="black" />';
+                svgCircle += '<text x="'+ 123 +'" y ="' + (radiusValue - 267) * -1 +'" fill="#488a99">'+ actualValue +                                  '</text>'    
+            }
+            
+            legend.html(svgCircle);
+        }
+        
+        function infoWindow(private, federal, currentSubject) {
+            
+            var info = $('#info');
+                federal.on('mouseover', function(e) {
+                    info.show();
+                
+            var props = e.layer.feature.properties;
+                $('#info p:first-child span').text(props.COUNTY);
+                $(".private span:first-child").text('( Subject ' + currentSubject + ' ) ');
+                $(".federal span:first-child").text('( Subject ' + currentSubject + ' ) ');
+                
+                $(".private span:last-child").text(props['P'+String(currentSubject)].toLocaleString()+' textbooks');
+                $(".federal span:last-child").text(props['F'+String(currentSubject)].toLocaleString()+' textbooks');
+                
+                e.layer.setStyle({ fillOpacity: .4 });
+            })
+            
+            federal.on('mouseout', function(e) {
+                info.hide();
+                e.layer.setStyle({ fillOpacity: .1});
+            });
+            
+            $(document).mousemove(function (e) {
+                info.css({"left": e.pageX + 6, "top": e.pageY - info.height() - 15});
+                    if(info.offset().top < 4) {
+                        info.css({"top": e.pageY + 15});
+                } 
+                    if(info.offset().left + info.width() >= $(document).width() - 40) {
+                        info.css({"left": e.pageX - info.width() - 30});
+                }
+                
+            });
+        }
+        
+    </script>
+</body>
+</html>
