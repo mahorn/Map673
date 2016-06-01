@@ -12,32 +12,29 @@
             font-family: 'Poiret One', cursive;
         }
         h1 {
-            position: absolute;
-            padding: 6px 10%;
-            right: 17%;
-            top: 0;
-            font-size: 3.2em;
+            width: 800px;
+            margin: 20px auto;
+            font-size: 2.2em;
             font-weight: 100;
-            text-align: center;
+            text-align: right;
+            line-height: 1.1em;
             color: #d4dde1;
         }
         h2 {
             position: absolute;
-            padding: 6px 10%;
-            left: 34%;
-            bottom: 21%;
             font-size: 2em;
             font-weight: 100;
             color: #d4dde1;
+            bottom: 30px;
+            left: 15px;
         }
         h3 {
             position: absolute;
-            padding: 6px 10%;
-            left: 32%;
-            bottom: 18%;
             font-size: 1.2em;
             font-weight: 100;
             color: #d4dde1;
+            bottom: 15px;
+            left: 15px;
         }
         h4 {
             position: absolute;
@@ -50,18 +47,28 @@
         }
         #map {
             width: 800px;
-            height: 600px;
-            margin: 200px auto;
+            height: 480px;
+            margin: 0 auto 20px;
             border: 1px solid #4c3f54;
             background: black;
+            position: relative;
         }
+
         footer {
-            position: absolute;
-            padding: 6px 10%;
-            width: 80%;
-            height: 12%;
-            bottom: 0;
             background: #4c3f54;
+            padding: 15px 0;
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            left: 0;
+        }
+        footer p {
+            font-size: 0.9em;
+            font-weight: 100;
+            color:  #d4dde1;
+            text-align: right;
+            width: 800px;
+            margin: 0 auto;
         }
         .tons {
             fill: "#4c3f54";
@@ -78,30 +85,26 @@
         .islands {
             fill: black;
         }
-        p {
-            font-size: 0.9em;
-            font-weight: 100;
-            color:  #d4dde1;
-            text-align: right;
-            line-height: 100%;
-        }
+
         
     </style>
 </head>
 <body>
-    
-    <div id="map"></div>
+    <h1>2014 Greenhouse Gas Emissions<br>from Large Facilities</h1>
+
+    <div id="map">
+        <h2></h2>
+        <h3></h3>
+    </div>
 
     <footer>
-        <p>Data from the United States Environmental Protection Agency (EPA).</p>
-        <p>This data set does not reflect total U.S. GHG emissions. Data report to EPA as of 08/16/2015.</p>
-        <p>Map Projection: d3.geo.albers.</p>
-        <p>Map Authored by Maria Renee Horn.</p> 
+            <p>Data from the United States Environmental Protection Agency (EPA).</p>
+            <p>This data set does not reflect total U.S. GHG emissions. Data report to EPA as of 08/16/2015.</p>
+            <p>Map Projection: d3.geo.albers.</p>
+            <p>Map Authored by Maria Renee Horn.</p> 
     </footer>
     
-    <h1>2014 Greenhouse Gas Emissions<br>from Large Facilities</h1>
-    <h2></h2>
-    <h3></h3>
+
 <!--    <h4>from Large Facilities</h4>-->
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
@@ -111,7 +114,7 @@
     
 <script>
       
-    var width = 800, height = 600;
+    var width = 800, height = 480;
     
     var svg = d3.select("#map")
             .append("svg")
