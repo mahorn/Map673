@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset=utf-8 />
+    <title>Lab 03 Starter file</title>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+
+    <script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
+    <script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/simple-statistics/1.0.0/simple_statistics.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/4.1.2/papaparse.min.js"></script>
+
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
+    <link href='https://fonts.googleapis.com/css?family=Josefin+Sans:700' rel='stylesheet' type='text/css'>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: #b6b6b4;
+            font-family: 'Josefin Sans', sans-serif;
+            color: #b6b6b4;
+        }
+        header {
+            padding: 6px 10%;
+        }
+        h1 {
+            position: absolute;
+            z-index: 100;
+            top: 10px;
+            left: 60px;
+            padding: 8px 15px;
+            margin: 0; 
+            color: #97d0cc;
+            font-size: 2.1em;
+            background: rgba(25,25,25,0.8);
+            border-radius: 5px;
+        }
+        #map {
+            position: absolute;
+            width: 100%;
+            top: 0;
+            bottom: 0;
+        }
+        footer {
+            padding: 6px 10%;
+            width: 80%;
+        }
+        p {
+            font-size: 1em;
+            color: #97d0cc;
+            font-family: 'Josefin Sans', sans-serif;
+        }
+        .legend {
+            padding: 6px 8px;
+            font-size: 1.1em;
+            background: rgba(25,25,25,0.8);
+            color: #b6b6b4;
+            box-shadow: 0 0 15px rgba(0,0,0,0.2);
+            border-radius: 5px;
+            width: 130px;
+            font-family: 'Josefin Sans', sans-serif;
+        }
+        .legend h3 {
+            font-size: 1.2em;
+            font-weight: bold;
+            line-height: 2em;
+            color: #97d0cc;
+            margin: 0;
+            text-align: center;
+            line-height: 1.3em;
+        }
+        .legend ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 12px 4px 0;
+        }
+        .legend li {
+            height: 22px;
+        }
+        .legend span {
+            width: 30px;
+            height: 20px;
+            float: left;
+            margin-right: 10px;
+        }
+        #ui-controls {
+            width: 176px;
+            padding: 8px 10px 8px 10px;
+            background: rgba(25,25,25,0.8);
+            box-shadow: 0 0 15px rgba(0,0,0,0.2);
+            border-radius: 5px;
+            color: #b6b6b4;
+        }
+        label {
+            font-size: 1em;
+            font-weight: bold;
+        }
+        #ui-controls .min {
+            float: left;
+        }
+        #ui-controls .max {
+            float: right;
+        }
+        .year-slider {
+            width: 100%; 
+        }
+        .leaflet-popup-content {
+            max-width: 160px;
+            color: #463e3f;
+            line-height: inherit;
+            font-family: 'Josefin Sans', sans-serif;
+            font-size: 1.1em;
+        }
+        .info {
+            padding: 10px 12px;
+            font-size: 1.1em;
+            background: rgba(25,25,25,0.8);
+            box-shadow: 0 0 15px rgba(0,0,0,0.2);
+            border-radius: 5px;
+            text-align: center;
+            font-family: 'Josefin Sans', sans-serif;
+            width: 130px;
+        }
+        .info h3 {
+            margin: 0.3;
+            font-size: 1.3em;
+            color: #97d0cc;
+            font-family: 'Josefin Sans', sans-serif;
+        }
+        a {
+            color: #97d0cc;
+        }
+
+    </style>
+</head>
+
+<body>
+    <h1>Kentucky Unemployment Rates: 2000 - 2013</h1>
+    <div id='map'></div>
+    <div id='ui-controls'>
+        <label><span class= "min">2000</span><span class= "max">2013</span>
+            <input type= "range", min= "2000", step= "1", max = "2013", value= "2000", class= "year-slider"></input>
+        </label>
+    </div>
+    
+    <script>
+        
+         // instantiate the Leaflet map
+        var options = {
+            center: [37.80, -85.66],
+            zoom: 8,
+            minZoom: 8,
+            maxZoom: 12,
+            dragging: true,
+            zoomControl: true
+        }
+        var map = L.map('map', options);
+        
+        // load map tiles and add to map
+        var tiles = L.tileLayer('http://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png', {
+	        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="http://cartodb.com/attributions">CartoDB</a>',
+	        subdomains: 'abcd',
+	        maxZoom: 19
+        });
+            map.addLayer(tiles);
+        
+        // declare global variables
+        var dataLayer,
+            attribute = "21183";
+
+        // AJAX requests to load data files
+        $.getJSON("ky-counties.json", function(counties) {
+            Papa.parse('data_project.csv', {
+                download: true,
+                header: true,
+                complete: function (data) {
+                    
+                    processData(counties, data);
+                }
+            }); 
+        });
+        
+        // function to process/bind data
+        function processData(counties, data) {
+            console.log(counties, data);
+            for (var county in counties.features) {
+                var props = counties.features[county].properties;
+                    for (var d in data.data) {
+                        if(props.STATE_FIP + props.COUNTY_FIP == data.data[d].FIPS_ID) {
+                            counties.features[county].properties = data.data[d];
+                                break;
+                    }
+                }
+            }
+            
+//            drawLegend();
+//            drawMap(counties);
+//            createSliderUI();
+//            drawInfo();
+//            dataPlants();
+            
+        }
+        
+//           // function get the class breaks   
+//        function getClassBreaks() {
+//            var values = [];
+//                dataLayer.eachLayer(function(layer) {
+//                    var value = Number(layer.feature.properties[attribute]);
+//                        values.push(value);
+//            });
+//            
+//            var breaks = ss.quantile(values, [0, 0.14, 0.28, 0.43, 0.57, 0.71, 0.86, 1]);
+//            
+//                return breaks;
+//        }
+                    
+//           function dataPlants() {
+//               var plantsData = [];
+//                    dataLayer.eachLayer(function(layer){
+//                    var value = Number(layer.feature.properties[attribute]);
+//                        values.push(value);
+//                });
+//            var values = layer.feature.properties.FIPS_ID;
+//           }         
+                    
+//                                                                var plantsData = {}
+//
+//                                                                 data.forEach(function(d,k){
+//                                                                     console.log(d,k);
+//
+//                                                                     if(plantsData[d.SNAME]) {
+//                                                                         plantsData[d.SNAME].counties.push(d.FIPS_ID);
+//                                                                     } else {
+//                                                                         plantsData[d.SNAME] = {counties: [d.FIPS_ID]};
+//                                                                     }  
+//                                                                 });
+//                            
+        // function to draw the map
+        function drawMap(counties) {
+           dataLayer = L.geoJson(counties, {
+                style: function(feature) {
+                    return {
+                        color: '#848482',
+                        weight: 0.9,
+                        fillOpacity: 0.9,
+                        fillColor: '#504a4b'
+                    };
+                }
+//               
+            }).addTo(map);
+//            
+//            updateMap();
+       }
+//        
+//        // function to update the map
+//        function updateMap() {
+//            var breaks = getClassBreaks();
+//                dataLayer.eachLayer(function(layer) {   
+//                    var props = layer.feature.properties;
+//                    
+//                        layer.setStyle({
+//                            fillColor: getColor(Number(props[attribute]), breaks)
+//                        });
+//                    
+//                        layer.bindPopup("<b><center>" + props["NAME"] + " County" + "</b><br>" +
+//                                        "Unemployment: " + "<b>" + props[attribute] + " %" + "</b>");
+//                    
+//                        layer.on('mouseover', function() {
+//                            updateInfo(this);
+//                            this.setStyle({
+//                                stroke: true,
+//                                color: '#ff00ff',
+//                                weight: 2.5,
+//                            });
+//                        });
+//                    
+//                        layer.on('mouseout', function() {
+//                            updateInfo(this);
+//                            this.setStyle({
+//                                stroke: true,
+//                                color: '#848482',
+//                                weight: 1.1,
+//                            });
+//                            layer.closePopup();
+//                        }); 
+//                    
+//                dataLayer.on('mouseover', function() {
+//                    $(".info").show();
+//                });
+//                    
+//                dataLayer.on('mouseout', function() {
+//                    $(".info").hide();
+//                });
+//            });
+//            
+//            updateLegend(breaks);
+//        }
+//        
+//        // function get the class breaks   
+//        function getClassBreaks() {
+//            var values = [];
+//                dataLayer.eachLayer(function(layer) {
+//                    var value = Number(layer.feature.properties[attribute]);
+//                        values.push(value);
+//            });
+//            
+//            var breaks = ss.quantile(values, [0, 0.14, 0.28, 0.43, 0.57, 0.71, 0.86, 1]);
+//            
+//                return breaks;
+//        }
+//        
+//        // function to get the color value
+//        function getColor(d, breaks) {
+//            if(d <= breaks[1]) {
+//                   return '#beffe9';
+//               } else if (d <= breaks[2]) {
+//                   return '#a8e4d8';
+//               } else if (d <= breaks[3]) {
+//                   return '#92c9c8';
+//               } else if (d <= breaks[4]) {
+//                   return '#71a1b0';
+//               } else if (d <= breaks[5]) {
+//                   return '#57829d';
+//               } else if (d <= breaks[6]) {
+//                   return '#3d638a';
+//               } else if (d <= breaks[7]) {
+//                   return '#244477';
+//               } 
+//        }
+//        
+//        // function to draw the legend
+//        function drawLegend() {
+//            var legend = L.control({position: 'topright'});
+//                legend.onAdd = function(map) {
+//                    var div = L.DomUtil.create('div', 'legend');
+//                    
+//                        return div;
+//            };
+//            
+//            legend.addTo(map);
+//        }
+//        
+//        // function to update the legend
+//        function updateLegend(breaks) {
+//            var legend = $('.legend').html("<h3>% Unemployment " + attribute + "</h3><ul>");
+//                for (var i = 0; i < breaks.length-1; i++) {
+//                    var color = getColor(breaks[i + 1], breaks);
+//                        $('.legend ul').append('<li><span style="background:' + color + '"></span>' +
+//                            breaks[i] + ' &mdash; ' + breaks[i + 1] + " %" + '</li>');
+//            }
+//            
+//            legend.append("</ul>");
+//        }
+//        
+//        // function to create the range slider
+//        function createSliderUI() {
+//            var sliderControl = L.control({position: 'bottomleft'});
+//                sliderControl.onAdd = function(map) {
+//                    var slider = L.DomUtil.get('ui-controls');
+//                        L.DomEvent.addListener(slider, 'mousedown', function(e) {
+//                            L.DomEvent.stopPropagation(e);
+//                    });
+//                
+//                                return slider;
+//                }
+//                
+//            sliderControl.addTo(map);
+//                $('.year-slider')
+//                    .on('input change', function() {
+//                        attribute = $(this).val(); 
+//               
+//                            updateMap();
+//            });
+//        }
+//        
+//        // function to create an empty HTML div element
+//        function drawInfo() {
+//            var info = L.control({position: 'bottomright'});
+//            info.onAdd = function(map) {
+//                var div = L.DomUtil.create('div', 'info');
+//                
+//                    return div;
+//            }
+//            
+//            info.addTo(map);
+//            $(".info").hide();
+//        }
+//        
+//        // function to update the HTML div element
+//        function updateInfo(layer) {
+//            var props = layer.feature.properties;
+//            var html = "<h3>" + props["NAME"] + " County" + "</h3>" +
+//                        "2000: " + "<b><span>" + props["2000"] + " % </span></b><br>" +
+//                        "2001: " + "<b><span>" + props["2001"] + " % </span></b><br>" +
+//                        "2002: " + "<b><span>" + props["2002"] + " % </span></b><br>" +
+//                        "2003: " + "<b><span>" + props["2003"] + " % </span></b><br>" +
+//                        "2004: " + "<b><span>" + props["2004"] + " % </span></b><br>" +
+//                        "2005: " + "<b><span>" + props["2005"] + " % </span></b><br>" +
+//                        "2006: " + "<b><span>" + props["2006"] + " % </span></b><br>" +
+//                        "2007: " + "<b><span>" + props["2007"] + " % </span></b><br>" +
+//                        "2008: " + "<b><span>" + props["2008"] + " % </span></b><br>" +
+//                        "2009: " + "<b><span>" + props["2009"] + " % </span></b><br>" +
+//                        "2010: " + "<b><span>" + props["2010"] + " % </span></b><br>" +
+//                        "2011: " + "<b><span>" + props["2011"] + " % </span></b><br>" +
+//                        "2012: " + "<b><span>" + props["2012"] + " % </span></b><br>" +
+//                        "2013: " + "<b><span>" + props["2013"] + " % </span></b><br>"
+//            $(".info").html(html);
+//        }
+//              
+
+    </script>
+    
+</body>
+
+</html>

@@ -1,12 +1,12 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
+
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset=utf-8 />
-    <title>Distribution of Rare Plants in Kentucky</title>
-    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    <meta charset="utf-8">
+    <title>Map 673 Lesson 07 Template</title>
     
+<!--
+    ///////
     <script src='https://api.mapbox.com/mapbox.js/v2.2.4/mapbox.js'></script>
     <script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-omnivore/v0.2.0/leaflet-omnivore.min.js'></script>
     <script src='https://code.jquery.com/jquery-1.12.0.min.js'></script>
@@ -14,110 +14,14 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     
     <link href='https://api.mapbox.com/mapbox.js/v2.2.4/mapbox.css' rel='stylesheet' />
-    <link href='https://fonts.googleapis.com/css?family=Handlee' rel='stylesheet' type='text/css'>
-    
-<style>
-        body {
-          margin:0;
-          padding:0;
-        }
-        #map {
-          position:absolute;
-          top:0;
-          bottom:0;
-          width: 100%;
-        }
-    </style>
-</head>
-<body>
-
-    <div id='map'></div>
-
-    <script>
-        L.mapbox.accessToken = 'pk.eyJ1Ijoicmdkb25vaHVlIiwiYSI6Im5Ua3F4UzgifQ.PClcVzU5OUj17kuxqsY_Dg';
-
-        var map = L.mapbox.map('map', 'mapbox.dark', {
-            center: [37.95,-85.80],
-            zoom: 8,
-            minZoom: 6,
-            maxZoom: 10,
-//            maxBounds: L.latLngBounds([-6.22, 27.72],[5.76, 47.83])
-        });
-        
-        var counties = $.getJSON("county_kentucky.json", function(data) {
-            L.geoJson(data, {
-                style: function(feature) {
-                    return {
-                        color:'white',
-                        weight: 0.7,
-                        fillOpacity: 0.5,
-                        fillColor: 'white'
-                    };
-                },    
-                onEachFeature: function(feature,layer) {
-                    layer.on('mouseover', function(e) {
-                        e.target.setStyle({
-                            color: '#488a99',
-                            fillColor: '#488a99'
-                            });
-                        });
-                    layer.on('mouseout', function(e) {
-                        e.target.setStyle({
-                            color: 'white',
-                            fillColor: 'white'
-                            });
-                        });
-                }
-                
-            }).addTo(map).bringToBack();
-        });
-        
-        omnivore.csv('kentucky.csv')
-            .on('ready', function(e) {
-                drawMap(e.target.toGeoJSON());
-            }).on('error', function(e) {
-                console.log(e)
-        });
-        
-        function drawMap(kentuckyData) {
-            console.log(kentuckyData);
-            var plants = L.geoJson(kentuckyData, {
-                pointToLayer: function(feature, latlng) {
-                    return L.circleMarker(latlng, {
-                        color: '#dbae58',
-                        opacity: 1,
-                        weight: 1,
-                        fillOpacity: 1
-                    });
-                }
-                
-            }).addTo(map);
-        }
- 
-    </script>
-</body>
-</html>
-=======
-<html>
-<head>
-    <meta charset="utf-8">
-    <title>Map 673 Lesson 07 Template</title>
+    /////////////
+-->
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/queue-async/1.0.7/queue.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/1.6.19/topojson.min.js"></script>
 
-=======
-<html>
-<head>
-    <meta charset="utf-8">
-    <title>Map 673 Lesson 07 Template</title>
-    
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/queue-async/1.0.7/queue.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/1.6.19/topojson.min.js"></script>
 
->>>>>>> origin/master
     <link href="http://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
     <style>
         body {
@@ -139,6 +43,17 @@
             top: 50px;
             font-size: 1em;
         }
+
+/*
+        #map {
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            top: 0;
+            width: 100%;
+        }
+*/
+
         #map {
             position: absolute;
             right: 300px;
@@ -146,6 +61,7 @@
             width: 900;
             height: 600;
         }
+
         #plants {
             position: absolute;
             width: 260px;
@@ -176,7 +92,16 @@
     <div id="map"></div>
   
 <script>
-        
+    
+//    L.mapbox.accessToken = 'pk.eyJ1Ijoicmdkb25vaHVlIiwiYSI6Im5Ua3F4UzgifQ.PClcVzU5OUj17kuxqsY_Dg';
+//
+//        var map = L.mapbox.map('map', 'mapbox.dark', {
+//            center: [37, -84],
+//            zoom: 7,
+//            minZoom: 6,
+//            maxZoom: 9,
+//        });
+      
      queue()
         .defer(d3.csv, 'Data_Project.csv')
         .defer(d3.json, 'ky-counties.json')
@@ -184,10 +109,10 @@
     
      function ready(err, data, counties) {
         
-
           // add specific plants found within each county to
           // each county's properites
           counties.features.forEach(function(county,i) {
+              console.log(county);
               
               county.properties.plants = {};
           
@@ -208,11 +133,12 @@
          var plantsData = {}
          
          data.forEach(function(d,k){
+             console.log(d,k);
              
-             if(plantsData[d.SCOMNAME]) {
-                 plantsData[d.SCOMNAME].counties.push(d.FIPS_ID);
+             if(plantsData[d.SNAME]) {
+                 plantsData[d.SNAME].counties.push(d.FIPS_ID);
              } else {
-                 plantsData[d.SCOMNAME] = {counties: [d.FIPS_ID]};
+                 plantsData[d.SNAME] = {counties: [d.FIPS_ID]};
              }  
          });
          
@@ -226,7 +152,11 @@
          }
          // add this list to the DOM
          plantsList.html(listItems);
-        
+         
+         
+
+         
+         
          // draw the map
         var width = 900,
             height = 600;
@@ -276,7 +206,7 @@
                     // and check to see if they contain that plant
                     counties.each(function(d) {
                         for(var plant in d.properties.plants){
-                            if(d.properties.plants[plant].SCOMNAME == currentSelection) {
+                            if(d.properties.plants[plant].SNAME == currentSelection) {
                                 // if so, apply the hover
                                 d3.select(this).attr("class","county hover");
                                  
@@ -311,9 +241,5 @@
  
 </script>
 </body>
-<<<<<<< HEAD
 </html>
->>>>>>> origin/master
-=======
-</html>
->>>>>>> origin/master
+
