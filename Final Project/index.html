@@ -63,7 +63,7 @@
             color: greenyellow;
         }
         #plants li {
-            font-size: .9em;
+            font-size: 1em;
         }
         #plants li:hover {
             text-decoration: underline;
@@ -121,10 +121,10 @@
          data.forEach(function(d,k){
              console.log(d,k);
              
-             if(plantsData[d.SNAME]) {
-                 plantsData[d.SNAME].counties.push(d.FIPS_ID);
+             if(plantsData[d.CNAME]) {
+                 plantsData[d.CNAME].counties.push(d.FIPS_ID);
              } else {
-                 plantsData[d.SNAME] = {counties: [d.FIPS_ID]};
+                 plantsData[d.CNAME] = {counties: [d.FIPS_ID]};
              }  
          });
          
@@ -168,14 +168,14 @@
             .append("path")
             .attr( "d", geoPath )
             .attr("class","county")
-            .on("mouseover", function(d){
-                d3.select("#county-plants").html(getPlants(d.properties.plants));
-                d3.select(this).attr("class","county hover");
-            })
-            .on("mouseout", function(d){
-                d3.select("#county-plants").text("");
-                d3.select(this).attr("class","county");
-            });
+//            .on("mouseover", function(d){
+//                d3.select("#county-plants").html(getPlants(d.properties.plants));
+//                d3.select(this).attr("class","county hover");
+//            })
+//            .on("mouseout", function(d){
+//                d3.select("#county-plants").text("");
+//                d3.select(this).attr("class","county");
+//            });
          
          
             // select all the plant list items
@@ -192,7 +192,7 @@
                     // and check to see if they contain that plant
                     counties.each(function(d) {
                         for(var plant in d.properties.plants){
-                            if(d.properties.plants[plant].SNAME == currentSelection) {
+                            if(d.properties.plants[plant].CNAME == currentSelection) {
                                 // if so, apply the hover
                                 d3.select(this).attr("class","county hover");
                                  
@@ -216,7 +216,7 @@
                 var outputText = '';
 
                 for(var plant in plants) {
-                    outputText += '<li>' + plants[plant].SNAME + '</li>'
+                    outputText += '<li>' + plants[plant].CNAME + '</li>'
                 }
 
                 return outputText;
