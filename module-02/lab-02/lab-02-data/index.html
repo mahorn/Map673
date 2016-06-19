@@ -3,7 +3,7 @@
 
 <head>
     <meta charset=utf-8 />
-    <title>Lab 02 Starter</title>
+    <title>Distribution of Vacant Dwellings in Kentucky</title>
     <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
 
     <script src="https://code.jquery.com/jquery-1.12.2.min.js"></script>
@@ -240,8 +240,10 @@
                     this.setStyle({ // style the new attribute selection 
                         stroke: true, // set stroke value to true
                         color: '#ff00ff', // set stroke color
-                        weight: 2.8, // set stroke weight
+                        weight: 2.2, // set stroke weight
                     });
+                    
+                    layer.bringToFront();
                 });
                 
                 // resets to original color stroke along each state polygon

@@ -98,16 +98,18 @@
         map.addLayer(tiles);
         
     queue()
-        .defer(d3.csv, 'Data_Project.csv')
+        .defer(d3.csv, 'data_project.csv')
         .defer(d3.json, 'ky-counties.json')
         .await(ready);
     
      function ready(err, data, counties) {
+         console.log(data, counties);
         
 
           // add specific plants found within each county to
           // each county's properites
           counties.features.forEach(function(county,i) {
+              console.log(county);
               
               county.properties.plants = {};
           
@@ -129,10 +131,10 @@
          
          data.forEach(function(d,k){
              
-             if(plantsData[d.SCOMNAME]) {
-                 plantsData[d.SCOMNAME].counties.push(d.FIPS_ID);
+             if(plantsData[d.CNAME]) {
+                 plantsData[d.CNAME].counties.push(d.FIPS_ID);
              } else {
-                 plantsData[d.SCOMNAME] = {counties: [d.FIPS_ID]};
+                 plantsData[d.CNAME] = {counties: [d.FIPS_ID]};
              }  
          });
          
