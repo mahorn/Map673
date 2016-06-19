@@ -138,6 +138,8 @@
 
 <body>
     <h1>Kentucky Unemployment Rates: 2000 - 2013</h1>
+    <h3>Map by Maria Renee Horn</h3>
+    <h3>Data: Bureo of Labor Statistics</h3>
     <div id='map'></div>
     <div id='ui-controls'>
         <label><span class= "min">2000</span><span class= "max">2013</span>
@@ -237,6 +239,9 @@
                                 color: '#ff00ff',
                                 weight: 2.5,
                             });
+                            
+                        layer.bringToFront();
+                            
                         });
                     
                         layer.on('mouseout', function() {
@@ -246,6 +251,7 @@
                                 color: '#848482',
                                 weight: 1.1,
                             });
+                            
                             layer.closePopup();
                         }); 
                     
