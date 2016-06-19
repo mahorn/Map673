@@ -37,6 +37,19 @@
             background: rgba(25,25,25,0.8);
             border-radius: 5px;
         }
+        h4 {
+            position: absolute;
+            z-index: 100;
+            bottom: 40px;
+            left: 60px;
+            padding: 8px 15px;
+            margin: 0; 
+            color: #b6b6b4;
+            font-size: 1em;
+            background: rgba(25,25,25,0.8);
+            border-radius: 5px;
+            line-height: 1.8;
+        }
         #map {
             position: absolute;
             width: 100%;
@@ -87,7 +100,7 @@
         }
         #ui-controls {
             width: 176px;
-            padding: 8px 10px 8px 10px;
+            padding: 8px 10px 8px 60px;
             background: rgba(25,25,25,0.8);
             box-shadow: 0 0 15px rgba(0,0,0,0.2);
             border-radius: 5px;
@@ -138,8 +151,7 @@
 
 <body>
     <h1>Kentucky Unemployment Rates: 2000 - 2013</h1>
-    <h3>Map by Maria Renee Horn</h3>
-    <h3>Data: Bureo of Labor Statistics</h3>
+    <h4>Map by Maria Renee Horn<br>Data: Bureo of Labor Statistics</h4>
     <div id='map'></div>
     <div id='ui-controls'>
         <label><span class= "min">2000</span><span class= "max">2013</span>
@@ -325,7 +337,7 @@
         
         // function to create the range slider
         function createSliderUI() {
-            var sliderControl = L.control({position: 'bottomleft'});
+            var sliderControl = L.control({position: 'topleft'});
                 sliderControl.onAdd = function(map) {
                     var slider = L.DomUtil.get('ui-controls');
                         L.DomEvent.addListener(slider, 'mousedown', function(e) {
